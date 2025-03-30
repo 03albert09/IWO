@@ -5,5 +5,5 @@
 - Rusinovich Ivan
 - Yarmats Stanislau
 - Horobets Kiril
-- Szopa Jan
+- Sawicki Grzegorz
 - Marszewski Marcin
