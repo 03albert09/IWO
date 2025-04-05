@@ -1,0 +1,76 @@
+@startuml
+
+
+class Uzytkownik {
+    +przegladaDane()
+    +eksportuj(format: FormatEksportu): void
+    +logowanie(): void
+    +zmianaHasla(): void
+}
+
+class Administrator {
+    +zarzadzaUzytkownikami(): void
+    +zmianaHaslaUzytkownika(): void
+    +usunUzytkownika(): void
+}
+
+class CAPTCHA {
+    +zadanie: String
+    +rozwiazanie: String
+}
+
+class LogowanieDoSystemu {
+    +login: String
+    +haslo: String
+    +captcha: CAPTCHA
+    +logowanieDwuskładnikowe(): void
+}
+
+class LogowanieDwuskładnikowe {
+    +email: String
+    +kodJednorazowy: String
+}
+
+class Token {
+    +token: String
+}
+
+class ZmianaHasla {
+    +noweHaslo: String
+    +potwierdzenieNowegoHasla: String
+    +zmienHaslo(): void
+}
+
+class ZmianaHaslaPrzezUzytkownika {
+    +stareHaslo: String
+    +noweHaslo: String
+    +potwierdzenieNowegoHasla: String
+    +zmienHaslo(): void
+}
+
+class ZmianaHaslaPrzezAdministratora {
+    +loginUzytkownika: String
+    +noweHaslo: String
+    +potwierdzenieNowegoHasla: String
+    +zmienHasloUzytkownika(): void
+}
+
+class KomunikatOBladzieZmianyHasla {
+    +blad: String
+    +wyswietlKomunikat(): void
+}
+
+Uzytkownik --> LogowanieDoSystemu : loguje się
+LogowanieDoSystemu --> CAPTCHA : zawiera
+LogowanieDoSystemu --> LogowanieDwuskładnikowe : zawiera
+LogowanieDoSystemu --> Token : generuje
+Uzytkownik --> ZmianaHaslaPrzezUzytkownika : zmienia haslo
+Administrator --> ZmianaHaslaPrzezAdministratora : zmienia haslo uzytkownika
+Administrator --> Uzytkownik : zarzadza
+ZmianaHasla <|-- ZmianaHaslaPrzezUzytkownika
+ZmianaHasla <|-- ZmianaHaslaPrzezAdministratora
+ZmianaHasla --> KomunikatOBladzieZmianyHasla : wyswietla komunikat
+
+Administrator -|> Uzytkownik
+
+@enduml
