@@ -1,0 +1,39 @@
+@startuml
+
+class ZbiorDanych {
+  +nazwa: AtrybutZbioruDanych<String>
+  +opis: AtrybutZbioruDanych<String>
+  +dataAktualizacji: AtrybutZbioruDanych<Date>
+  +adres: AtrybutZbioruDanych<String>
+  +podmiotOdpowiedzialny: AtrybutZbioruDanych<String>
+}
+
+class Uzytkownik {
+    +przegladaDane()
+    +eksportuj(format: FormatEksportu): void
+}
+
+class EksportDanych {
+    +format: FormatEksportu
+    +eksportuj(zbiory: List<ZbiorDanych>): void
+}
+
+enum FormatEksportu {
+    JSON
+    YAML
+    XML
+}
+
+class WidokDanych {
+    +nazwa: String
+    +zastosujWidok(): void
+}
+
+WidokDanych --> ZbiorDanych : przedstawia
+Uzytkownik --> EksportDanych : inicjuje
+Uzytkownik --> FormatEksportu : wybiera
+EksportDanych --> ZbiorDanych : eksportuje
+EksportDanych --> FormatEksportu : wykorzystuje
+Uzytkownik --> WidokDanych : wybiera dane do eksportu
+
+@enduml

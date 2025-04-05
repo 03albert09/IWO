@@ -1,0 +1,105 @@
+@startuml
+
+class Uzytkownik {
+    +przegladaDane()
+    +eksportuj(format: FormatEksportu): void
+    +logowanie(): void
+    +zmianaHasla(): void
+    +oceniaZbiorDanych(): void
+}
+
+class Menadzer {
+    +przyznajUprawnienia(uprawnienie: Uprawnienia, login: String): void
+    +odbierzUprawnienia(uprawnienie: Uprawnienia, login: String): void
+}
+
+class Pracownik {
+    +aktualizujeDane(): void
+    +generujRaportRuchu(): void
+    +dodajZbiorDanych(): Boolean
+    +usunZbiorDanych(): Boolean
+    +edytujZbiorDanych(): Boolean
+}
+
+class Administrator {
+    +zarzadzajUzytkownikami(): void
+    +usunUzytkownika(login: String): void
+    +przyznajUprawnienia(login: String): void
+    +odbierzUprawnienia(login: String): void
+    +usunZbiorDanych(): Boolean
+}
+
+class ZbiorDanych {
+    +nazwa: String
+    +dataDodania: Date
+    +oceny: List<Ocena>
+}
+
+class PowiadomienieOZmianieUprawnien {
+    +wiadomosc: String
+    +wyslijEmail(): void
+}
+
+class UsuniecieDostepuDoSystemu {
+    +usunDostep(): void
+    +zglosUsuniecie(): void
+}
+
+class Uprawnienia {
+    +aktualizacja: Boolean
+    +generowanieRaportow: Boolean
+    +usuwanieDanych: Boolean
+    +eksport: Boolean
+}
+
+class RaportRuchu {
+    +dataGenerowania: Date
+    +liczbaOdwiedzin: int
+    +idZbioru: String
+    +generuj(): void
+    +eksportujRaport(): void
+}
+
+class Token {
+    +token: String
+}
+
+class API {
+    +authToken(token: String): Boolean
+    +dodajZbiorDanych(): Boolean
+    +usunZbiorDanych(): Boolean
+    +edytujZbiorDanych(): Boolean
+    +generujRaportRuchu(): Boolean
+    +pobierzRaportRuchu(idZbioru: String): RaportRuchu
+}
+
+class BazaZbiorowDanych {
+    +pobierzMetadane(): void
+    +sprawdzDostepnosc(): void
+}
+
+Menadzer -|> Pracownik
+Pracownik -|> Uzytkownik
+Administrator -|> Uzytkownik
+
+Menadzer --> Pracownik : zarzadza
+Menadzer --> PowiadomienieOZmianieUprawnien : wysyla
+Pracownik --> Token : wykorzystuje
+Pracownik --> API : uzywa
+Menadzer --> UsuniecieDostepuDoSystemu : zgłasza
+
+Administrator --> Uzytkownik : zarzadza
+Administrator --> UsuniecieDostepuDoSystemu : wykonuje
+
+UsuniecieDostepuDoSystemu --> Uzytkownik : dotyczy
+Uzytkownik --> Uprawnienia : posiada
+
+API --> RaportRuchu : generuje
+RaportRuchu --> ZbiorDanych : dotyczy
+RaportRuchu --> Uzytkownik : zbiera dane o
+
+API --> BazaZbiorowDanych : używa
+
+BazaZbiorowDanych --> ZbiorDanych : przechowuje
+
+@enduml

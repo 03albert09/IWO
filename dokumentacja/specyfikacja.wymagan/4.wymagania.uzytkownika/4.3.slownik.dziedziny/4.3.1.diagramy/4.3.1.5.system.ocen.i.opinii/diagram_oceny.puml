@@ -1,0 +1,43 @@
+@startuml
+
+class Uzytkownik {
+    +przegladaDane()
+    +eksportuj(format: FormatEksportu): void
+    +logowanie(): void
+    +zmianaHasla(): void
+    +oceniaZbiorDanych(): void
+}
+
+class ZbiorDanych {
+    +nazwa: String
+    +dataDodania: Date
+    +oceny: List<Ocena>
+}
+
+class Ocena {
+    +gwiazdki: int
+    +komentarz: String
+    +dataOceny: Date
+}
+
+class Gwiazdki {
+    +liczba: int
+}
+
+class Komentarz {
+    +tekst: String
+}
+
+class SortowanieOcen {
+    +kryterium: String
+    +sortuj(): List<Ocena>
+}
+
+Uzytkownik --> Ocena : wystawia
+Ocena --> Gwiazdki : przydziela
+Ocena --> Komentarz : dodaje
+Uzytkownik --> ZbiorDanych : ocenia
+SortowanieOcen --> Ocena : sortuje
+SortowanieOcen --> ZbiorDanych : dla zbioru danych
+
+@enduml

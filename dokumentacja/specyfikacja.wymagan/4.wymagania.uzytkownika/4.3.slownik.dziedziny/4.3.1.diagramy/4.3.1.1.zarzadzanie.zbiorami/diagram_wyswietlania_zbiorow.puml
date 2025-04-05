@@ -1,0 +1,100 @@
+@startuml
+
+class ZbiorDanych {
+  +nazwa: AtrybutZbioruDanych<String>
+  +opis: AtrybutZbioruDanych<String>
+  +dataAktualizacji: AtrybutZbioruDanych<Date>
+  +adres: AtrybutZbioruDanych<String>
+  +podmiotOdpowiedzialny: AtrybutZbioruDanych<String>
+}
+
+class AtrybutZbioruDanych<T> {
+    +nazwa: String
+    +wartosc: T
+}
+
+class SortowanieZbiorowDanych {
+    +zbioryDanych: List<ZbiorDanych>
+    +atrybut: AtrybutZbioruDanych<?>
+    +sortuj(): List<ZbiorDanych>
+}
+
+class WynikiWyszukiwaniaZbiorowDanych {
+    +zbiorDanych: List<ZbiorDanych>
+    +trafnoscZapytania: double
+    +sortowanie: SortowanieWynikowWyszukiwania
+    +wyswietlWyniki()
+    +sortuj()
+}
+
+class WyswietlanieZbiorowDanych {
+    +wszystkieZbiory: List<ZbiorDanych>
+    +wynikiWyszukiwania: WynikiWyszukiwaniaZbiorowDanych
+    +wyswietlTabele(): void
+}
+
+class WidokDanych {
+    +nazwa: String
+    +zastosujWidok(): void
+}
+
+enum FormatDanych {
+    JSON
+    XML
+}
+
+class Uzytkownik {
+    +przegladaDane()
+    +eksportuj(format: FormatEksportu): void
+}
+
+class Zapytanie {
+    +fraza: String
+    +analyze(): double
+}
+
+class WizualizacjaZbioruDanych {
+    +typWizualizacji: String
+    +generuj(): void
+}
+
+class HistoriaWyszukiwania {
+    +zapytania: List<Zapytanie>
+    +dodajZapytanie(zapytanie: Zapytanie): void
+    +pobierzHistorie(): List<Zapytanie>
+}
+
+class Administrator {
+    +przegladaHistorie(): void
+}
+
+class OdwiedzinyZbioru {
+    +dataOdwiedzin: Date
+    +czasOdwiedzin: int
+    +zarejestrujOdwiedziny(): void
+}
+
+
+WyswietlanieZbiorowDanych --> ZbiorDanych : prezentuje
+ZbiorDanych *-- AtrybutZbioruDanych : zawiera
+WynikiWyszukiwaniaZbiorowDanych o-- ZbiorDanych : zawiera
+WynikiWyszukiwaniaZbiorowDanych *-- SortowanieZbiorowDanych : sortuje
+SortowanieZbiorowDanych --> ZbiorDanych : sortuje
+SortowanieZbiorowDanych --> AtrybutZbioruDanych : według
+WyswietlanieZbiorowDanych --> WynikiWyszukiwaniaZbiorowDanych : zawiera
+WidokDanych --> ZbiorDanych : przedstawia
+Uzytkownik --> WyswietlanieZbiorowDanych : korzysta z
+Uzytkownik --> Zapytanie : wprowadza
+Zapytanie --> WynikiWyszukiwaniaZbiorowDanych : analizuje
+
+WyswietlanieZbiorowDanych --> WizualizacjaZbioruDanych : uruchamia
+WizualizacjaZbioruDanych --> FormatDanych : korzysta z
+WizualizacjaZbioruDanych --> WidokDanych : uruchamia widok
+
+Zapytanie --> HistoriaWyszukiwania : zapisuje się w
+Administrator --> HistoriaWyszukiwania : przegląda
+
+WizualizacjaZbioruDanych --> OdwiedzinyZbioru : rejestruje
+Uzytkownik --> WizualizacjaZbioruDanych : anonimowo odwiedza
+
+@enduml
