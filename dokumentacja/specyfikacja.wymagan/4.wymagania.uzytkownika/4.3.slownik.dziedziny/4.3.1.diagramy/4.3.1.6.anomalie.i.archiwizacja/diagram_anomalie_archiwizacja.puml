@@ -1,0 +1,95 @@
+@startuml
+class Administrator {
+    +zarzadzaUzytkownikami(): void
+    +zmianaHaslaUzytkownika(): void
+    +usunUzytkownika(login: String): void
+    +przyznajeUprawnienia(): void
+    +odbieraUprawnienia(): void
+    +monitorujeProblemy(): void
+}
+
+class KopieZapasowe {
+    +tworzenieKopii(): void
+    +przechowywanie(): void
+}
+
+class AtrybutZbioruDanych<T> {
+    +nazwa: String
+    +wartosc: T
+}
+
+class KomunikatOAnomalii {
+    +wiadomosc: String
+    +wyslijPowiadomienie(): void
+}
+
+class BazaZbiorowDanych {
+    +pobierzMetadane(): void
+    +sprawdzDostepnosc(): void
+}
+
+class KomunikatONiedostepnosciBazyDanych {
+    +wiadomosc: String
+    +wyslijPowiadomienie(): void
+}
+
+class ArchiwizacjaZbiorowDanych {
+    +tworzenieKopiiZapasowych(): void
+    +przechowywanieKopii(): void
+}
+
+class HarmonogramArchiwizacji {
+    +okresCzasu: String
+    +czestotliwosc: String
+}
+
+class AutomatycznePrzesylanieDanych {
+    +monitorujZmiany(): void
+    +przesylajDane(): void
+}
+
+class CKAN {
+    +publikacjaDanych(): void
+    +integracjaZSystemami(): void
+}
+
+class IntegracjaZCKAN {
+    +przesylanieDanych(): void
+    +syncDanych(): void
+    +apiCKAN(): void
+}
+
+class WykrywanieAnomalii {
+    +monitorujDane(): void
+    +wykryjAnomalie(): void
+}
+
+class ZbiorDanych {
+  +nazwa: AtrybutZbioruDanych<String>
+  +opis: AtrybutZbioruDanych<String>
+  +dataAktualizacji: AtrybutZbioruDanych<Date>
+  +adres: AtrybutZbioruDanych<String>
+  +podmiotOdpowiedzialny: AtrybutZbioruDanych<String>
+}
+
+Administrator --> WykrywanieAnomalii : monitoruje
+Administrator --> BazaZbiorowDanych : zarządza
+Administrator --> ArchiwizacjaZbiorowDanych : zarzadza
+
+WykrywanieAnomalii --> KomunikatOAnomalii : generuje
+WykrywanieAnomalii --> Administrator : informuje
+
+BazaZbiorowDanych --> ZbiorDanych : przechowuje
+BazaZbiorowDanych --> KomunikatONiedostepnosciBazyDanych : generuje
+
+ArchiwizacjaZbiorowDanych --> KopieZapasowe : tworzy
+HarmonogramArchiwizacji --> ArchiwizacjaZbiorowDanych : wyzwala
+
+AutomatycznePrzesylanieDanych --> IntegracjaZCKAN : przekazuje dane
+AutomatycznePrzesylanieDanych --> BazaZbiorowDanych : monitoruje
+
+IntegracjaZCKAN --> CKAN : integruje
+
+ZbiorDanych *-- AtrybutZbioruDanych : zawiera
+
+@enduml
