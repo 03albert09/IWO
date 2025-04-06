@@ -7,4 +7,6 @@
 - Horobets Kiril
 - Sawicki Grzegorz
 - Marszewski Marcin
-- Aleksander Piluk
+- Jeleniewicz Wiktoria
+- Piluk Aleksander
+- Dobkowski Kamil
