@@ -1,1 +1,1 @@
-Tutaj znajdzie się opis celu dokumentu... - uzupełnić pod koniec projektu
+Zdefiniowanie jasnych i precyzyjnych wymagań funkcjonalnych oraz niefunkcjonalnych, które mają być spełnione przez projektowany system. Specyfikacja ta ma na celu zapewnienie, że wszystkie potrzeby użytkowników, interesariuszy oraz wymagania techniczne i operacyjne zostaną w pełni uwzględnione w procesie projektowania, implementacji i testowania systemu.
