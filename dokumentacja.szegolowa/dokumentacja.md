@@ -1,0 +1,1 @@
+# szególowe opisy przypadków użycia 
