@@ -1,2 +1,2 @@
 # szególowe opisy przypadków użycia 
-:[UC0002 - Wyszukanie zbiorów danych](uc0002.md)
+:[UC0002 - Wyszukanie zbiorów danych](UC0002.md)
