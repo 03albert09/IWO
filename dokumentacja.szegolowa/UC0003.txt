@@ -1,0 +1,36 @@
+UC0003 - Filtrowanie zbiorów danych
+
+Main scenario
+PRE: Użytkownik <show> lista zbiorów danych
+
+00: Użytkownik <select> "Filtruj zbiory danych"
+01: System <show> panel filtrów
+<<invoke>> [wybrano opcję] Wyświetlenie dostępnych kategorii
+02: Użytkownik <enter> parametry (kategoria, data, format)
+03: System <validate> kryteria
+[kryteria poprawne]
+04: System <apply> filtry
+05: System <show> przefiltrowana lista
+<<invoke>> Generowanie podglądu danych
+-> end ! SUCCESS
+
+POST: Wyświetlona lista zawiera tylko zbiory spełniające kryteria
+
+Scenario A1 (Brak wyników)
+00-03: -"- [brak pasujących zbiorów]
+04a: System <show> "Brak wyników spełniających kryteria"
+[reset filtrów]
+05a: Użytkownik <select> "Wyczyść filtry"
+06a: System <show> pełna lista
+-> end ! PARTIAL_SUCCESS
+
+Słownik pojęć
+
+Panel filtrów – Interfejs systemu umożliwiający użytkownikowi wybór kryteriów selekcji zbiorów danych. System powinien udostępniać pola wyboru kategorii tematycznych, zakresu dat oraz formatów plików. Nawigacja powinna być intuicyjna, a wszystkie opcje filtrowania powinny być łatwo dostępne i widoczne.
+
+Kryteria filtrowania – Zestaw parametrów umożliwiających selekcję zbiorów danych. System powinien umożliwiać filtrowanie według kategorii tematycznych  , zakresu dat utworzenia lub modyfikacji, typów plików .
+
+Przefiltrowana lista – Wynik działania filtrów prezentujący jedynie te zbiory danych, które spełniają wybrane kryteria. Lista powinna być wyświetlana w formie tabeli z możliwością sortowania, paginacją oraz w przejrzystej i czytelnej formie.
+
+Reset filtrów – Funkcjonalność przywracająca domyślny widok wszystkich zbiorów danych. System powinien usuwać aktywne kryteria filtrowania, wyraźnie oznaczać ich usunięcie w interfejsie oraz zapewniać łatwy dostęp do tej funkcji z poziomu panelu filtrów.
+
