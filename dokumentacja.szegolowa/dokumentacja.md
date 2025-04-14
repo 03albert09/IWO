@@ -8,6 +8,9 @@
 :[UC0003](UC0003.md)
 <div style="page-break-before: always;"></div>
 
+:[UC0003](UC0006.md)
+<div style="page-break-before: always;"></div>
+
 :[UC0007](UC0007.md)
 <div style="page-break-before: always;"></div>
 
@@ -24,6 +27,9 @@
 <div style="page-break-before: always;"></div>
 
 :[UC0023](UC0023.md)
+<div style="page-break-before: always;"></div>
+
+:[UC0023](UC0024.md)
 <div style="page-break-before: always;"></div>
 
 :[UC0034](UC0034.md)
