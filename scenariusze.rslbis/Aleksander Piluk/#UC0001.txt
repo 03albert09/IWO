@@ -1,0 +1,49 @@
+Use case Start Main scenario
+00: Uzytkownik <select> application
+01: System <show> main menu
+02: Uzytkownik <invoke> Wyswietlenie zbiorow danych
+-> rejoin 01
+
+Use case Wyswietlenie zbiorow danych Main scenario
+00: Uzytkownik <select> wyswietlenie zbiorow danych
+01: System <show> control flow menu
+02: Uzytkownik <select> lista zbiorow danych
+03: System <read> zbior danych list
+04: System <show> zbior danych list
+05: Uzytkownik <select> zamknij
+-> end ! SUCCESS
+
+Scenario
+01: -"-
+A2: Uzytkownik <select> pusta lista zbiorow danych
+A3: System <show> brak zbiorow danych message
+A4: Uzytkownik <select> zamknij
+-> end ! FAILURE
+
+Scenario
+01: -"-
+B2: Uzytkownik <select> blad bazy danych
+B3: System <show> error message
+B4: Uzytkownik <select> zamknij
+-> end ! FAILURE
+
+Data zbior danych {
+	ID: integer,
+	nazwa: text,
+	opis: text,
+	dataDodania: text,
+	kategoria: text
+}
+
+Data zbior danych list {
+	zbioryDanych: [zbior danych]
+}
+
+
+Data brak zbiorow danych message {
+	message: text
+}
+
+Data error message {
+	nazwa: text
+}
