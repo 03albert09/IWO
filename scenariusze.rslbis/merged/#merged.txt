@@ -1,7 +1,7 @@
 Use case Start Main scenario 
 00: User <select> application  
 01: System <show> main menu  
-02: User <invoke> Add User
+02: User <invoke> Add User, Wyswietlenie zbiorow danych
 -> rejoin 01
 
 
@@ -36,9 +36,54 @@ Scenario
 C1: Admin <select> Cancel  
 -> end ! CANCEL
  
+Use case Wyswietlenie zbiorow danych Main scenario
+00: User <select> wyswietlenie zbiorow danych
+01: System <show> control flow menu
+02: User <select> lista zbiorow danych
+03: System <read> zbior danych list
+04: System <show> zbior danych list
+05: User <select> zamknij
+-> end ! SUCCESS
+
+Scenario
+01: -"-
+A2: User <select> pusta lista zbiorow danych
+A3: System <show> brak zbiorow danych message
+A4: User <select> zamknij
+-> end ! FAILURE
+
+Scenario
+01: -"-
+B2: User <select> blad bazy danych
+B3: System <show> error message
+B4: User <select> zamknij
+-> end ! FAILURE
+
 Data uzytkownik {
   Imie : text,
   Nazwisko : text,
   Login : text,
   Haslo : text
+}
+
+
+Data zbior danych {
+	ID: integer,
+	nazwa: text,
+	opis: text,
+	dataDodania: text,
+	kategoria: text
+}
+
+Data zbior danych list {
+	zbioryDanych: [zbior danych]
+}
+
+
+Data brak zbiorow danych message {
+	message: text
+}
+
+Data error message {
+	nazwa: text
 }
