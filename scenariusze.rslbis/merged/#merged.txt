@@ -1,7 +1,7 @@
 Use case Start Main scenario 
 00: User <select> application  
 01: System <show> main menu  
-02: User <invoke> Add User, Wyswietlenie zbiorow danych
+02: User <invoke> Add User, Wyswietlenie zbiorow danych, Filtrowanie zbiorow danych
 -> rejoin 01
 
 
