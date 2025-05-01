@@ -59,6 +59,36 @@ B3: System <show> error message
 B4: User <select> zamknij
 -> end ! FAILURE
 
+Use case Filtrowanie zbiorow danych Main scenario
+00: User <select> Filtruj zbior danych
+01: System <show> filtruj zbior danych form
+02: User <enter> kryteria filtrowania
+03: User <select> Filtruj zbior
+04: System <check> kryteria filtrowania 
+05: System <read> zbiory wg kryteriow
+06: System <show> zbiory wg kryteriow
+07: User <select> Close
+-> end ! OK
+
+Scenario
+02: -"-
+A1: User <select> Filtruj brak zbiorow
+A2: System <show> brak zbiorow wg kryteriow
+A3: Uzytkownik <select> Close
+-> rejoin 01
+
+Scenario
+02: -"-
+B1: User <select> Wyszukaj z bledem bazy danych
+B2: System <show> baza danych search error message
+B3: User <select> powrot
+-> rejoin 01
+
+Scenario 
+01: -"-  
+C1: User <select> Cancel  
+-> end ! CANCEL
+
 Data uzytkownik {
   Imie : text,
   Nazwisko : text,
@@ -86,4 +116,16 @@ Data brak zbiorow danych message {
 
 Data error message {
 	nazwa: text
+}
+
+Data kryteria filtrowania {
+    fraza : text,
+    dataOd: text,
+    dataDo: text,
+    Lokalizacja : text,
+    tematyka: text
+}
+
+Data zbiory wg kryteriow {
+	zbioryDanych: [zbior danych]
 }
