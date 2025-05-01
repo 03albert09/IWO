@@ -10,8 +10,9 @@ Use case Wyszukanie zbiorow danych Main scenario
 02: User <enter> kryteria wyszukiwania
 03: User <select> Wyszukaj zbior
 04: System <check> kryteria wyszukiwania
-05: System <show> zbiory wg kryteriow
-06: User <select> Close
+05: System <read> zbiory wg kryteriow
+06: System <show> zbiory wg kryteriow
+07: User <select> Close
 -> end ! OK
 
 Scenario
@@ -49,4 +50,6 @@ Data kryteria wyszukiwania {
   DataDo : text
 }
 
-
+Data zbiory wg kryteriow {
+	zbioryDanych: [zbior danych]
+}

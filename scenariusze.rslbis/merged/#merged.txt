@@ -1,7 +1,7 @@
 Use case Start Main scenario 
 00: User <select> application  
 01: System <show> main menu  
-02: User <invoke> Add User, Wyswietlenie zbiorow danych
+02: User <invoke> Add User, Wyswietlenie zbiorow danych, Wyszukanie zbiorow danych
 -> rejoin 01
 
 
@@ -59,6 +59,36 @@ B3: System <show> error message
 B4: User <select> zamknij
 -> end ! FAILURE
 
+Use case Wyszukanie zbiorow danych Main scenario
+00: User <select> Wyszukaj zbior danych
+01: System <show> wyszukaj zbior danych form
+02: User <enter> kryteria wyszukiwania
+03: User <select> Wyszukaj zbior
+04: System <check> kryteria wyszukiwania
+05: System <read> zbiory wg kryteriow
+06: System <show> zbiory wg kryteriow
+07: User <select> Close
+-> end ! OK
+
+Scenario
+02: -"-  
+A1: User <select> Wyszukaj brak zbiorow
+A2: System <show> brak zbiorow wg kryteriow
+A3: User <select> Close
+-> rejoin 01
+
+Scenario
+02: -"-
+B1: User <select> Wyszukaj z bledem bazy danych
+B2: System <show> baza danych search error message
+B3: User <select> powrot
+-> rejoin 01
+
+Scenario 
+01: -"-  
+C1: User <select> Cancel  
+-> end ! CANCEL
+
 Data uzytkownik {
   Imie : text,
   Nazwisko : text,
@@ -86,4 +116,16 @@ Data brak zbiorow danych message {
 
 Data error message {
 	nazwa: text
+}
+
+Data kryteria wyszukiwania {
+  Fraza : text,
+  Tematyka : text,
+  Lokalizacja : text,
+  DataOd : text,
+  DataDo : text
+}
+
+Data zbiory wg kryteriow {
+	zbioryDanych: [zbior danych]
 }
