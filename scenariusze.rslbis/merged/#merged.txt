@@ -61,8 +61,7 @@ B4: User <select> zamknij
 
 Scenario
 04: -"-
-C5: User <select> historia
-C6: User <invoke> Wyswietl historie zbiorow danych
+C5: User <invoke> Wyswietl historie zbiorow danych
 -> rejoin 04
 
 
@@ -187,20 +186,18 @@ Use case Wyswietl historie zbiorow danych Main scenario
 01: System <show> pokaz historie zbioru danych
 02: User <select> pokaz
 03: System <show> historia zmian zbioru danych
-04: User <select> Close
 -> end ! OK
 
 Scenario
 01 -"-
 B2: User <select> no history
 B3: System <show> no history error message
-B4: User <select> Close
 -> end ! CANCEL
 
 Scenario
 01 -"-
 C2: User <select> no db connection
-C3: System <show> komunikatBazy error message
+C3: System <show> db error
 C4: User <select> Close
 
 Use case Przyznanie dostepu do systemu Main scenario
