@@ -59,6 +59,11 @@ B3: System <show> error message
 B4: User <select> zamknij
 -> end ! FAILURE
 
+Scenario
+04: -"-
+C5: User <invoke> Wyswietl historie zbiorow danych
+-> rejoin 01
+
 
 Use case Logowanie do systemu Main scenario
 00: Uzytkownik <select> logowanie
@@ -175,6 +180,28 @@ Scenario
 01: -"-  
 C1: User <select> Cancel  
 -> end ! CANCEL
+
+Use case Wyswietl historie zbiorow danych Main scenario
+00: User <select> pokaz historie zbioru danych
+01: System <show> pokaz historie zbioru danych
+02: User <select> pokaz
+03: System <show> historia zmian zbioru danych
+04: User <select> close
+-> end ! OK
+
+Scenario
+01 -"-
+B2: User <select> no history
+B3: System <show> no history error message
+B4: User <select> close
+-> end ! FAILURE
+
+Scenario
+01 -"-
+C2: User <select> no db connection
+C3: System <show> db error
+C4: User <select> close
+-> end ! FAILURE
 
 Use case Przyznanie dostepu do systemu Main scenario
 00: Admin <select> Przyznaj dostep
@@ -347,6 +374,20 @@ Data zbiory wg kryteriow {
 Data status logowania {
   poprawne: boolean,
   komunikat: text
+}
+
+Data no history error message {
+  message: text
+}
+
+Data zmiana zbioru danych {
+  czas: date,
+  diff: text,
+  editor: text
+}
+
+Data historia zmian zbioru danych {
+  zmiany: [zmiana zbioru danych]
 }
 
 Trigger *button* zamknij {Zamknij}
