@@ -1,7 +1,7 @@
 Use case Start Main scenario 
 00: User <select> application  
 01: System <show> main menu  
-02: User <invoke> Add User, Wyswietlenie zbiorow danych, Logowanie do systemu
+02: User <invoke> Add User, Wyswietlenie zbiorow danych, Edycja zbioru, Wyszukanie zbiorow danych, Logowanie do systemu
 -> rejoin 01
 
 
@@ -83,6 +83,94 @@ B1: System <show> informacja o bledzie logowania
 B2: Uzytkownik <select> ponow logowanie
 -> rejoin 01
 
+
+Use case Wyszukanie zbiorow danych Main scenario
+00: User <select> Wyszukaj zbior danych
+01: System <show> wyszukaj zbior danych form
+02: User <enter> kryteria wyszukiwania
+03: User <select> Wyszukaj zbior
+04: System <check> kryteria wyszukiwania
+05: System <read> zbiory wg kryteriow
+06: System <show> zbiory wg kryteriow
+07: User <select> Close
+-> end ! OK
+
+Scenario
+02: -"-  
+A1: User <select> Wyszukaj brak zbiorow
+A2: System <show> brak zbiorow wg kryteriow
+A3: User <select> Close
+-> end ! CANCEL
+
+Scenario
+02: -"-
+B1: User <select> Wyszukaj z bledem bazy danych
+B2: System <show> baza danych search error message
+B3: User <select> powrot
+-> rejoin 01
+
+Scenario 
+01: -"-  
+C1: User <select> Cancel  
+-> end ! CANCEL
+
+
+Use case Edycja zbioru Main scenario
+00: Dostawca <select> edycja zbioru
+01: System <show> formularz edycji
+02: Dostawca <enter> edytowany zbior danych
+03: Dostawca <select> zapisz
+04: System <execute> zapisz zmiany
+05: System <show> komunikatSukces window
+06: Dostawca <select> Close
+-> end ! OK
+
+Scenario
+02: -"-
+A1: Dostawca <select> Baza danych niedostepna
+A2: System <show> komunikatBazy error message
+A3: Dostawca <select> Close
+-> rejoin 01
+
+Scenario
+02: -"-
+B1: Dostawca <select> Wynik walidacji niepoprawny
+B2: System <show> komunikatWalidacji error message
+B3: Dostawca <select> Close
+-> rejoin 01
+
+Scenario
+01: -"-
+C1: Dostawca <select> anuluj
+-> end ! CANCEL
+
+Data edytowany zbior danych {
+  wlasciciel: text,
+  zrodloDanych: text,
+  nazwa: text,
+  opis: text,
+  kategoria: text,
+  format: text,
+  dataUtworzenia: text,
+  dataAktualizacji: text
+}
+
+Data formularz edycji {
+  zbior: edytowany zbior danych
+}
+
+Data komunikatSukces {
+  informacja: text
+}
+
+Data komunikatWalidacji {
+  informacja: text
+}
+
+Data komunikatBazy {
+  informacja: text
+}
+
 Data uzytkownik {
   Imie : text,
   Nazwisko : text,
@@ -112,6 +200,7 @@ Data error message {
 	nazwa: text
 }
 
+
 Data dane logowania {
   login: text,
   haslo: text
@@ -127,6 +216,19 @@ View *form* potwierdzenie zalogowania {Pomyslnie zalogowano}
 View *form* informacja o bledzie logowania {Bledne dane logowania}
 
 Trigger *button* zamknij {Zamknij}
-Trigger *button* ponow logowanie {Ponów logowanie}
+Trigger *button* ponow logowanie {Ponow logowanie}
 Trigger *button* zaloguj {Zaloguj}
 Trigger *button* anuluj logowanie {Anuluj logowanie}
+
+Data kryteria wyszukiwania {
+  Fraza : text,
+  Tematyka : text,
+  Lokalizacja : text,
+  DataOd : text,
+  DataDo : text
+}
+
+Data zbiory wg kryteriow {
+	zbioryDanych: [zbior danych]
+}
+

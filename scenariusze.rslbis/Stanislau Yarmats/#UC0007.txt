@@ -1,0 +1,61 @@
+Use case Start Main scenario
+00: Dostawca <select> application
+01: System <show> main menu
+02: Dostawca <invoke> Edycja zbioru
+-> rejoin 01
+
+Use case Edycja zbioru Main scenario
+00: Dostawca <select> edycja zbioru
+01: System <show> formularz edycji
+02: Dostawca <enter> edytowany zbior danych
+03: Dostawca <select> zapisz
+04: System <execute> zapisz zmiany
+05: System <show> komunikatSukces window
+06: Dostawca <select> Close
+-> end ! OK
+
+Scenario
+02: -"-
+A1: Dostawca <select> Baza danych niedostepna
+A2: System <show> komunikatBazy error message
+A3: Dostawca <select> Close
+-> rejoin 01
+
+Scenario
+02: -"-
+B1: Dostawca <select> Wynik walidacji niepoprawny
+B2: System <show> komunikatWalidacji error message
+B3: Dostawca <select> Close
+-> rejoin 01
+
+Scenario
+01: -"-
+C1: Dostawca <select> anuluj
+-> end ! CANCEL
+
+Data edytowany zbior danych {
+  wlasciciel: text,
+  zrodloDanych: text,
+  nazwa: text,
+  opis: text,
+  kategoria: text,
+  format: text,
+  dataUtworzenia: text,
+  dataAktualizacji: text
+}
+
+Data formularz edycji {
+  zbior: edytowany zbior danych
+}
+
+Data komunikatSukces {
+  informacja: text
+}
+
+Data komunikatWalidacji {
+  informacja: text
+}
+
+Data komunikatBazy {
+  informacja: text
+}
