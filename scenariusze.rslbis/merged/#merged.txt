@@ -192,14 +192,14 @@ Scenario
 B1: User <select> no history
 B2: System <show> no history error message
 B3: User <select> Close
--> end ! FAILURE
+-> end ! CANCEL
 
 Scenario
 00 -"-
 C1: User <select> no db connection
 C2: System <show> komunikatBazy error message
 C3: User <select> Close
--> end ! FAILURE
+-> end ! CANCEL
 
 Use case Importowanie danych Main scenario
 00: Dostawca <select> importowanie danych
