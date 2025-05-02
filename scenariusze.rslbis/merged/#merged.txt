@@ -1,7 +1,7 @@
 Use case Start Main scenario 
 00: User <select> application  
 01: System <show> main menu  
-02: User <invoke> Add User, Wyswietlenie zbiorow danych, Edycja zbioru, Wyszukanie zbiorow danych, Logowanie do systemu, Filtrowanie zbiorow danych, Importowanie danych, Przyznanie dostepu do systemu
+02: User <invoke> Add User, Wyswietlenie zbiorow danych, Edycja zbioru, Wyszukanie zbiorow danych, Logowanie do systemu, Filtrowanie zbiorow danych, Importowanie danych, Przyznanie dostepu do systemu, Walidacja danych
 -> rejoin 01
 
 
@@ -165,7 +165,7 @@ Use case Filtrowanie zbiorow danych Main scenario
 Scenario
 02: -"-
 A1: User <select> Filtruj brak zbiorow
-A2: System <show> brak zbiorow wg kryteriów error message
+A2: System <show> brak zbiorow wg kryteriow error message
 A3: Uzytkownik <select> Close
 -> rejoin 01
 
@@ -190,14 +190,14 @@ Use case Wyswietl historie zbiorow danych Main scenario
 -> end ! OK
 
 Scenario
-01 -"-
+01: -"-
 B2: User <select> no history
 B3: System <show> no history error message
 B4: User <select> close
 -> end ! FAILURE
 
 Scenario
-01 -"-
+01: -"-
 C2: User <select> no db connection
 C3: System <show> db error
 C4: User <select> close
@@ -260,6 +260,59 @@ Scenario
 01: -"-
 C1: Dostawca <select> Cancel
 -> end ! CANCEL
+
+Use case Walidacja danych Main scenario
+00: Dostawca <select> walidacja danych
+01: System <show> walidacja danych form
+02: Dostawca <enter> plik walidacyjny
+03: Dostawca <select> waliduj dane
+04: System <execute> walidacja danych
+05: System <show> walidacja sukces message
+06: Dostawca <select> Close
+-> end ! OK
+
+Scenario
+02: -"-
+B1: Dostawca <select> format pliku niepoprawny
+B2: System <show> walidacja format niepoprawny message
+B3: Dostawca <select> Close
+-> rejoin 01
+
+Scenario
+02: -"-
+C1: Dostawca <select> dane w pliku niepoprawne
+C2: System <show> walidacja bledy danych message
+C3: Dostawca <select> Close
+-> rejoin 01
+
+Scenario
+02: -"-
+A1: Dostawca <select> anuluj
+-> end ! CANCEL
+
+Data plik walidacyjny {
+  nazwa: text,
+  format: text,
+  rozmiar: integer
+}
+
+Data walidacja danych form {
+  plik: plik walidacyjny
+}
+
+Data walidacja sukces message {
+  informacja: text
+}
+
+Data walidacja format niepoprawny message {
+  informacja: text,
+  szczegoly: text
+}
+
+Data walidacja bledy danych message {
+  informacja: text,
+  listabledow: text
+}
 
 Data plik {
   Nazwa: text,
