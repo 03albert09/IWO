@@ -1,0 +1,65 @@
+Use case Start Main scenario
+00: Dostawca <select> application
+01: System <show> main menu
+02: Dostawca <invoke> Importowanie danych
+-> rejoin 01
+
+Use case Importowanie danych Main scenario
+00: Dostawca <select> importowanie danych
+01: System <show> przeslij plik form
+02: Dostawca <enter> plik
+03: Dostawca <select> przeslij plik
+04: System <check> plik
+05: System <execute> zapisz zbior
+06: System <show> pomyslne zaimportowanie message
+07: Dostawca <select> Close
+-> end ! OK
+
+Scenario
+02: -"-
+A1: Dostawca <select> Nieobslugiwany format pliku
+A2: System <show> blad formatu pliku message
+A3: Dostawca <select> Close
+-> end ! FAILURE
+
+Scenario
+02: -"-
+B1: Dostawca <select> Dane niepoprawne
+B2: System <show> bledy message
+B3: Dostawca <select> Close
+-> end ! FAILURE
+
+Scenario
+01: -"-
+C1: Dostawca <select> Cancel
+-> end ! CANCEL
+
+Data plik {
+  Nazwa: text,
+  Format: text,
+  Rozmiar: integer
+}
+
+Data danezbioru {
+  Format: text,
+  Dane: text,
+  Poprawnosc: text
+}
+
+Data zbiordanych {
+  Nazwa: text,
+  Rozmiar: integer,
+  Dane: text
+}
+
+Data blad formatu pliku message {
+  Tresc: text
+}
+
+Data bledy message {
+  Tresc: text
+}
+
+Data pomyslne zaimportowanie message {
+  Tresc: text
+}
