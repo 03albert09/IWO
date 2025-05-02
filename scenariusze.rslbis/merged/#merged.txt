@@ -182,9 +182,9 @@ C1: User <select> Cancel
 -> end ! CANCEL
 
 Use case Wyswietl historie zbiorow danych Main scenario
-00: User <select> placeholder
+00: User <select> pokaz historie zbioru danych
 01: System <show> pokaz historie zbioru danych
-02: User <select> pokaz historie zbioru danych
+02: User <select> pokaz
 03: System <show> historia zmian zbioru danych
 04: User <select> Close
 -> end ! OK
