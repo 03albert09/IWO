@@ -84,7 +84,6 @@ B1: System <show> informacja o bledzie logowania
 B2: Uzytkownik <select> ponow logowanie
 -> rejoin 01
 
-
 Use case Wyszukanie zbiorow danych Main scenario
 00: User <select> Wyszukaj zbior danych
 01: System <show> wyszukaj zbior danych form
@@ -154,22 +153,21 @@ Use case Filtrowanie zbiorow danych Main scenario
 02: User <enter> kryteria filtrowania
 03: User <select> Filtruj zbior
 04: System <check> kryteria filtrowania 
-05: System <read> zbiory wg kryteriow
-06: System <show> zbiory wg kryteriow
-07: User <select> Close
+05: System <show> zbiory wg kryteriow list
+06: User <select> Close
 -> end ! OK
 
 Scenario
 02: -"-
 A1: User <select> Filtruj brak zbiorow
-A2: System <show> brak zbiorow wg kryteriow
+A2: System <show> brak zbiorow wg kryteriów error message
 A3: Uzytkownik <select> Close
 -> rejoin 01
 
 Scenario
 02: -"-
 B1: User <select> Wyszukaj z bledem bazy danych
-B2: System <show> baza danych search error message
+B2: System <show> baza danych searcha error message
 B3: User <select> powrot
 -> rejoin 01
 
@@ -177,8 +175,6 @@ Scenario
 01: -"-  
 C1: User <select> Cancel  
 -> end ! CANCEL
-
-
 
 Data edytowany zbior danych {
   wlasciciel: text,
@@ -249,19 +245,9 @@ Data dane logowania {
   haslo: text
 }
 
-Data status logowania {
-  poprawne: boolean,
-  komunikat: text
-}
-
 View *form* formularz logowania {Wprowadz dane logowania}
 View *form* potwierdzenie zalogowania {Pomyslnie zalogowano}
 View *form* informacja o bledzie logowania {Bledne dane logowania}
-
-Trigger *button* zamknij {Zamknij}
-Trigger *button* ponow logowanie {Ponow logowanie}
-Trigger *button* zaloguj {Zaloguj}
-Trigger *button* anuluj logowanie {Anuluj logowanie}
 
 Data kryteria wyszukiwania {
   Fraza : text,
@@ -274,3 +260,16 @@ Data kryteria wyszukiwania {
 Data zbiory wg kryteriow {
 	zbioryDanych: [zbior danych]
 }
+
+
+
+Data status logowania {
+  poprawne: boolean,
+  komunikat: text
+}
+
+Trigger *button* zamknij {Zamknij}
+Trigger *button* ponow logowanie {Ponow logowanie}
+Trigger *button* zaloguj {Zaloguj}
+Trigger *button* anuluj logowanie {Anuluj logowanie}
+
