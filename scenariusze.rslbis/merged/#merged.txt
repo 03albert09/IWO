@@ -183,7 +183,7 @@ C1: User <select> Cancel
 
 Use case Wyswietl historie zbiorow danych Main scenario
 00: User <select> pokaz historie zbioru danych
-01: System <show> historia zbioru danych
+01: System <show> historia zmian zbioru danych
 02: User <select> Close
 -> end ! OK
 
@@ -341,7 +341,7 @@ Data status logowania {
   komunikat: text
 }
 
-Data no history {
+Data no history error message {
   message: text
 }
 
