@@ -1,0 +1,42 @@
+Use case Start Main scenario
+00: User <select> application
+01: System <show> main menu
+02: User <invoke> Wyswietl historie zbiorow danych
+-> rejoin 01
+
+
+Use case Wyswietl historie zbiorow danych Main scenario
+00: User <select> pokaz historie zbioru danych
+01: System <show> pokaz historie zbioru danych
+02: User <select> pokaz
+03: System <show> historia zmian zbioru danych
+04: User <select> close
+-> end ! OK
+
+Scenario
+01 -"-
+B2: User <select> no history
+B3: System <show> no history error message
+B4: User <select> close
+-> end ! FAILURE
+
+Scenario
+01 -"-
+C2: User <select> no db connection
+C3: System <show> db error
+C4: User <select> close
+-> end ! FAILURE
+
+Data no history error message {
+  message: text
+}
+
+Data zmiana zbioru danych {
+  czas: date,
+  diff: text,
+  editor: text
+}
+
+Data historia zmian zbioru danych {
+  zmiany: [zmiana zbioru danych]
+}

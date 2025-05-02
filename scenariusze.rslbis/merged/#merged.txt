@@ -62,7 +62,7 @@ B4: User <select> zamknij
 Scenario
 04: -"-
 C5: User <invoke> Wyswietl historie zbiorow danych
--> rejoin 04
+-> rejoin 01
 
 
 Use case Logowanie do systemu Main scenario
