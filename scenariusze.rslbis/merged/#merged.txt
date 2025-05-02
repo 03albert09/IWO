@@ -190,11 +190,13 @@ Use case Wyświetl historie zbiorow danych Main scenario
 Scenario
 00 -"-
 B1: System <show> no history error message
+B2: User <select> Close
 -> end ! FAILURE
 
 Scenario
 00 -"-
 C1: System <show> komunikatBazy error message
+C2: User <select> Close
 -> end ! FAILURE
 
 Use case Importowanie danych Main scenario
