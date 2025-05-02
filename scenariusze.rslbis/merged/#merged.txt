@@ -193,13 +193,15 @@ Scenario
 01 -"-
 B2: User <select> no history
 B3: System <show> no history error message
--> end ! ERROR
+B4: User <select> close
+-> end ! FAILURE
 
 Scenario
 01 -"-
 C2: User <select> no db connection
 C3: System <show> db error
--> end ! ERROR
+C4: User <select> close
+-> end ! FAILURE
 
 Use case Przyznanie dostepu do systemu Main scenario
 00: Admin <select> Przyznaj dostep
