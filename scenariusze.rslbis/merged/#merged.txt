@@ -61,7 +61,8 @@ B4: User <select> zamknij
 
 Scenario
 04: -"-
-C5: User <invoke> Wyświetl historie zbiorow danych
+C5: User <select> historia
+C6: User <invoke> Wyświetl historie zbiorow danych
 -> rejoin 04
 
 
