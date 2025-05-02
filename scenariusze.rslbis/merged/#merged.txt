@@ -1,7 +1,7 @@
 Use case Start Main scenario 
 00: User <select> application  
 01: System <show> main menu  
-02: User <invoke> Add User, Wyswietlenie zbiorow danych, Edycja zbioru, Wyszukanie zbiorow danych, Logowanie do systemu, Filtrowanie zbiorow danych
+02: User <invoke> Add User, Wyswietlenie zbiorow danych, Edycja zbioru, Wyszukanie zbiorow danych, Logowanie do systemu, Filtrowanie zbiorow danych, Importowanie danych
 -> rejoin 01
 
 
@@ -204,6 +204,54 @@ B2: System <show> przyznanaj istniejacy dostep error message
 B3: Admin <select> Cancel 
 -> end ! CANCEL
 
+Use case Importowanie danych Main scenario
+00: Dostawca <select> importowanie danych
+01: System <show> przeslij plik form
+02: Dostawca <enter> plik
+03: Dostawca <select> przeslij plik
+04: System <check> plik
+05: System <execute> zapisz zbior
+06: System <show> pomyslne zaimportowanie message
+07: Dostawca <select> Close
+-> end ! OK
+
+Scenario
+02: -"-
+A1: Dostawca <select> Nieobslugiwany format pliku
+A2: System <show> blad formatu pliku message
+A3: Dostawca <select> Close
+-> end ! FAILURE
+
+Scenario
+02: -"-
+B1: Dostawca <select> Dane niepoprawne
+B2: System <show> bledy message
+B3: Dostawca <select> Close
+-> end ! FAILURE
+
+Scenario
+01: -"-
+C1: Dostawca <select> Cancel
+-> end ! CANCEL
+
+Data plik {
+  Nazwa: text,
+  Format: text,
+  Rozmiar: integer
+}
+
+Data blad formatu pliku message {
+  Tresc: text
+}
+
+Data bledy message {
+  Tresc: text
+}
+
+Data pomyslne zaimportowanie message {
+  Tresc: text
+}
+
 Data edytowany zbior danych {
   wlasciciel: text,
   zrodloDanych: text,
@@ -296,8 +344,6 @@ Data zbiory wg kryteriow {
 	zbioryDanych: [zbior danych]
 }
 
-
-
 Data status logowania {
   poprawne: boolean,
   komunikat: text
@@ -305,5 +351,4 @@ Data status logowania {
 
 Trigger *button* zamknij {Zamknij}
 Trigger *button* ponow logowanie {Ponow logowanie}
-Trigger *button* zaloguj {Zaloguj}
 Trigger *button* anuluj logowanie {Anuluj logowanie}
