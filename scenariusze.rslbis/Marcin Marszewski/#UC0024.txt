@@ -15,8 +15,8 @@ Use case Przyznanie dostepu do systemu Main scenario
 06: Admin <select> przyznaj dostep confirm
 07: System <check> dostep
 08: System <execute> przyznaj dostep method
-07: System <show> dostep przyznany window
-08: Admin <select> Close
+09: System <show> dostep przyznany window
+10: Admin <select> Close
 -> end ! OK
 
 Scenario 
