@@ -182,24 +182,25 @@ C1: User <select> Cancel
 -> end ! CANCEL
 
 Use case Wyswietl historie zbiorow danych Main scenario
-00: System <show> pokaz historie zbioru danych
-01: User <select> pokaz historie zbioru danych
-02: System <show> historia zmian zbioru danych
-03: User <select> Close
+00: User <select> placeholder
+01: System <show> pokaz historie zbioru danych
+02: User <select> pokaz historie zbioru danych
+03: System <show> historia zmian zbioru danych
+04: User <select> Close
 -> end ! OK
 
 Scenario
-00 -"-
-B1: User <select> no history
-B2: System <show> no history error message
-B3: User <select> Close
+01 -"-
+B2: User <select> no history
+B3: System <show> no history error message
+B4: User <select> Close
 -> end ! CANCEL
 
 Scenario
-00 -"-
-C1: User <select> no db connection
-C2: System <show> komunikatBazy error message
-C3: User <select> Close
+01 -"-
+C2: User <select> no db connection
+C3: System <show> komunikatBazy error message
+C4: User <select> Close
 
 Use case Przyznanie dostepu do systemu Main scenario
 00: Admin <select> Przyznaj dostep
