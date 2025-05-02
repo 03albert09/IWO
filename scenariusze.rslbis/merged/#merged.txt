@@ -1,7 +1,7 @@
 Use case Start Main scenario 
 00: User <select> application  
 01: System <show> main menu  
-02: User <invoke> Add User, Wyswietlenie zbiorow danych, Edycja zbioru, Wyszukanie zbiorow danych, Logowanie do systemu, Filtrowanie zbiorow danych, Importowanie danych
+02: User <invoke> Add User, Wyswietlenie zbiorow danych, Edycja zbioru, Wyszukanie zbiorow danych, Logowanie do systemu, Filtrowanie zbiorow danych, Importowanie danych, Przyznanie dostepu do systemu
 -> rejoin 01
 
 
@@ -199,6 +199,33 @@ Scenario
 C1: User <select> no db connection
 C2: System <show> komunikatBazy error message
 C3: User <select> Close
+
+Use case Przyznanie dostepu do systemu Main scenario
+00: Admin <select> Przyznaj dostep
+01: System <read> uzytkownik list
+02: System <show> uzytkownik list
+03: Admin <select> wybranie uzytkownika z listy
+04: System <show> przyznaj dostep form
+05: Admin <enter> dostep
+06: Admin <select> przyznaj dostep confirm
+07: System <check> dostep
+08: System <execute> przyznaj dostep method
+09: System <show> dostep przyznany window
+10: Admin <select> Close
+-> end ! OK
+
+Scenario 
+05: -"-  
+A1: Admin <select> Przyznaj dostep z bledem danych
+A2: System <show> przyznanie blad danych error message
+A3: Admin <select> Cancel  
+-> end ! CANCEL
+
+Scenario 
+05: -"-  
+B1: Admin <select> Przyznaj istniejacy dostep
+B2: System <show> przyznanaj istniejacy dostep error message
+B3: Admin <select> Cancel 
 -> end ! CANCEL
 
 Use case Importowanie danych Main scenario
@@ -276,6 +303,10 @@ Data komunikatBazy {
   informacja: text
 }
 
+Data dostep {
+	Dostep: text
+}
+
 Data uzytkownik {
   Imie : text,
   Nazwisko : text,
@@ -283,6 +314,9 @@ Data uzytkownik {
   Haslo : text
 }
 
+Data uzytkownik list {
+	uzytkownicy: [uzytkownik]
+}
 
 Data zbior danych {
 	ID: integer,
@@ -334,8 +368,6 @@ Data zbiory wg kryteriow {
 	zbioryDanych: [zbior danych]
 }
 
-
-
 Data status logowania {
   poprawne: boolean,
   komunikat: text
@@ -357,6 +389,4 @@ Data historia zmian zbioru danych {
 
 Trigger *button* zamknij {Zamknij}
 Trigger *button* ponow logowanie {Ponow logowanie}
-Trigger *button* zaloguj {Zaloguj}
 Trigger *button* anuluj logowanie {Anuluj logowanie}
-
