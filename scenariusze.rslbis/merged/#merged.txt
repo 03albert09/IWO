@@ -1,7 +1,7 @@
 Use case Start Main scenario 
 00: User <select> application  
 01: System <show> main menu  
-02: User <invoke> Add User, Wyswietlenie zbiorow danych, Edycja zbioru, Wyszukanie zbiorow danych, Logowanie do systemu, Filtrowanie zbiorow danych
+02: User <invoke> Add User, Wyswietlenie zbiorow danych, Edycja zbioru, Wyszukanie zbiorow danych, Logowanie do systemu, Filtrowanie zbiorow danych, Historia zbiorow danych
 -> rejoin 01
 
 
@@ -58,6 +58,11 @@ B2: User <select> blad bazy danych
 B3: System <show> error message
 B4: User <select> zamknij
 -> end ! FAILURE
+
+Scenario
+04: -"-
+C5: User <invoke> Wyświetl historie zbiorow danych
+-> rejoin 04
 
 
 Use case Logowanie do systemu Main scenario
@@ -176,6 +181,21 @@ Scenario
 C1: User <select> Cancel  
 -> end ! CANCEL
 
+Use case Wyświetl historie zbiorow danych Main scenario
+00: User <select> pokaz historie zbioru danych
+01: System <show> historia zbioru danych
+-> end ! OK
+
+Scenario
+00 -"-
+B1: System <show> no history error message
+-> end ! FAILURE
+
+Scenario
+00 -"-
+C1: System <show> komunikatBazy error message
+-> end ! FAILURE
+
 Data edytowany zbior danych {
   wlasciciel: text,
   zrodloDanych: text,
@@ -266,6 +286,20 @@ Data zbiory wg kryteriow {
 Data status logowania {
   poprawne: boolean,
   komunikat: text
+}
+
+Data no history {
+  message: text
+}
+
+Data zmiana zbioru danych {
+  czas: date,
+  diff: text,
+  editor: text
+}
+
+Data historia zmian zbioru danych {
+  zmiany: [zmiana zbioru danych]
 }
 
 Trigger *button* zamknij {Zamknij}
