@@ -33,7 +33,6 @@ B2: System <show> przyznanaj istniejacy dostep error message
 B3: Admin <select> Cancel 
 -> end ! CANCEL
 
-
 Data dostep {
 	Dostep: text
 }
@@ -47,13 +46,4 @@ Data uzytkownik {
 
 Data uzytkownik list {
 	uzytkownicy: [uzytkownik]
-}
-
-
-Data zbior danych {
-	ID: integer,
-	nazwa: text,
-	opis: text,
-	dataDodania: text,
-	kategoria: text
 }

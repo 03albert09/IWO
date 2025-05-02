@@ -1,7 +1,7 @@
 Use case Start Main scenario 
 00: User <select> application  
 01: System <show> main menu  
-02: User <invoke> Add User, Wyswietlenie zbiorow danych, Przyznanie dostepu do systemu
+02: User <invoke> Add User, Wyswietlenie zbiorow danych, Edycja zbioru, Wyszukanie zbiorow danych, Logowanie do systemu, Filtrowanie zbiorow danych
 -> rejoin 01
 
 
@@ -32,6 +32,7 @@ B1: Admin <select> Przyznaj istniejacy dostep
 B2: System <show> przyznanaj istniejacy dostep error message
 B3: Admin <select> Cancel 
 -> end ! CANCEL
+
 
 Use case Add User Main scenario 
 00: Admin <select> Dodaj nowego uzytkownika  
@@ -87,6 +88,154 @@ B3: System <show> error message
 B4: User <select> zamknij
 -> end ! FAILURE
 
+
+Use case Logowanie do systemu Main scenario
+00: Uzytkownik <select> logowanie
+01: System <show> formularz logowania
+02: Uzytkownik <enter> dane logowania
+03: Uzytkownik <select> zaloguj
+04: System <check> dane logowania
+[dane logowania ? valid]
+05: System <show> potwierdzenie zalogowania
+06: Uzytkownik <select> zamknij
+-> end ! OK
+
+Scenario
+02: -"-
+A1: Uzytkownik <select> anuluj logowanie
+A2: System <close> formularz logowania
+-> end ! CANCEL
+
+Scenario
+04: -"-
+[dane logowania ? invalid]
+B1: System <show> informacja o bledzie logowania
+B2: Uzytkownik <select> ponow logowanie
+-> rejoin 01
+
+
+Use case Wyszukanie zbiorow danych Main scenario
+00: User <select> Wyszukaj zbior danych
+01: System <show> wyszukaj zbior danych form
+02: User <enter> kryteria wyszukiwania
+03: User <select> Wyszukaj zbior
+04: System <check> kryteria wyszukiwania
+05: System <read> zbiory wg kryteriow
+06: System <show> zbiory wg kryteriow
+07: User <select> Close
+-> end ! OK
+
+
+Scenario
+02: -"-  
+A1: User <select> Wyszukaj brak zbiorow
+A2: System <show> brak zbiorow wg kryteriow
+A3: User <select> Close
+-> end ! CANCEL
+
+
+Scenario
+02: -"-
+B1: User <select> Wyszukaj z bledem bazy danych
+B2: System <show> baza danych search error message
+B3: User <select> powrot
+-> rejoin 01
+
+Scenario 
+01: -"-  
+C1: User <select> Cancel  
+-> end ! CANCEL
+
+
+Use case Edycja zbioru Main scenario
+00: Dostawca <select> edycja zbioru
+01: System <show> formularz edycji
+02: Dostawca <enter> edytowany zbior danych
+03: Dostawca <select> zapisz
+04: System <execute> zapisz zmiany
+05: System <show> komunikatSukces window
+06: Dostawca <select> Close
+-> end ! OK
+
+Scenario
+02: -"-
+A1: Dostawca <select> Baza danych niedostepna
+A2: System <show> komunikatBazy error message
+A3: Dostawca <select> Close
+-> rejoin 01
+
+Scenario
+02: -"-
+B1: Dostawca <select> Wynik walidacji niepoprawny
+B2: System <show> komunikatWalidacji error message
+B3: Dostawca <select> Close
+-> rejoin 01
+
+Scenario
+01: -"-
+C1: Dostawca <select> anuluj
+-> end ! CANCEL
+
+
+Use case Filtrowanie zbiorow danych Main scenario
+00: User <select> Filtruj zbior danych
+01: System <show> filtruj zbior danych form
+02: User <enter> kryteria filtrowania
+03: User <select> Filtruj zbior
+04: System <check> kryteria filtrowania 
+05: System <read> zbiory wg kryteriow
+06: System <show> zbiory wg kryteriow
+07: User <select> Close
+-> end ! OK
+
+Scenario
+02: -"-
+A1: User <select> Filtruj brak zbiorow
+A2: System <show> brak zbiorow wg kryteriow
+A3: Uzytkownik <select> Close
+-> rejoin 01
+
+Scenario
+02: -"-
+B1: User <select> Wyszukaj z bledem bazy danych
+B2: System <show> baza danych search error message
+B3: User <select> powrot
+-> rejoin 01
+
+Scenario 
+01: -"-  
+C1: User <select> Cancel  
+-> end ! CANCEL
+
+
+
+Data edytowany zbior danych {
+  wlasciciel: text,
+  zrodloDanych: text,
+  nazwa: text,
+  opis: text,
+  kategoria: text,
+  format: text,
+  dataUtworzenia: text,
+  dataAktualizacji: text
+}
+
+Data formularz edycji {
+  zbior: edytowany zbior danych
+}
+
+Data komunikatSukces {
+  informacja: text
+}
+
+Data komunikatWalidacji {
+  informacja: text
+}
+
+Data komunikatBazy {
+  informacja: text
+}
+
 Data dostep {
 	Dostep: text
 }
@@ -95,13 +244,13 @@ Data uzytkownik {
   Imie : text,
   Nazwisko : text,
   Login : text,
-  Haslo : text
+  Haslo : text,
+  Dostep : text
 }
 
 Data uzytkownik list {
 	uzytkownicy: [uzytkownik]
 }
-
 
 Data zbior danych {
 	ID: integer,
@@ -122,4 +271,43 @@ Data brak zbiorow danych message {
 
 Data error message {
 	nazwa: text
+}
+
+Data kryteria filtrowania {
+    fraza : text,
+    dataOd: text,
+    dataDo: text,
+    Lokalizacja : text,
+    tematyka: text
+}
+
+Data dane logowania {
+  login: text,
+  haslo: text
+}
+
+Data status logowania {
+  poprawne: boolean,
+  komunikat: text
+}
+
+View *form* formularz logowania {Wprowadz dane logowania}
+View *form* potwierdzenie zalogowania {Pomyslnie zalogowano}
+View *form* informacja o bledzie logowania {Bledne dane logowania}
+
+Trigger *button* zamknij {Zamknij}
+Trigger *button* ponow logowanie {Ponow logowanie}
+Trigger *button* zaloguj {Zaloguj}
+Trigger *button* anuluj logowanie {Anuluj logowanie}
+
+Data kryteria wyszukiwania {
+  Fraza : text,
+  Tematyka : text,
+  Lokalizacja : text,
+  DataOd : text,
+  DataDo : text
+}
+
+Data zbiory wg kryteriow {
+	zbioryDanych: [zbior danych]
 }
