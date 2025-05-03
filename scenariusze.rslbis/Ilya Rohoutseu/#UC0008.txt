@@ -1,0 +1,58 @@
+Use case Start Main scenario
+00: Dostawca <select> application
+01: System <show> main menu
+02: Dostawca <invoke> Walidacja danych
+-> rejoin 01
+
+Use case Walidacja danych Main scenario
+00: Dostawca <select> walidacja danych
+01: System <show> walidacja danych form
+02: Dostawca <enter> plik walidacyjny
+03: Dostawca <select> waliduj dane
+04: System <execute> walidacja danych
+05: System <show> walidacja sukces message
+06: Dostawca <select> Close
+-> end ! OK
+
+Scenario
+02: -"-
+B1: Dostawca <select> format pliku niepoprawny
+B2: System <show> walidacja format niepoprawny message
+B3: Dostawca <select> Close
+-> rejoin 01
+
+Scenario
+02: -"-
+C1: Dostawca <select> dane w pliku niepoprawne
+C2: System <show> walidacja bledy danych message
+C3: Dostawca <select> Close
+-> rejoin 01
+
+Scenario
+02: -"-
+A1: Dostawca <select> anuluj
+-> end ! CANCEL
+
+Data plik walidacyjny {
+  nazwa: text,
+  format: text,
+  rozmiar: integer
+}
+
+Data walidacja danych form {
+  plik: plik walidacyjny
+}
+
+Data walidacja sukces message {
+  informacja: text
+}
+
+Data walidacja format niepoprawny message {
+  informacja: text,
+  szczegoly: text
+}
+
+Data walidacja bledy danych message {
+  informacja: text,
+  listabledow: text
+}
