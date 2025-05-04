@@ -1,0 +1,67 @@
+Use case Start Main scenario
+00: Administrator <select> application
+01: System <show> main menu
+02: Administrator <invoke> Dodawanie nowych zbiorów danych
+-> rejoin 01
+
+Use case Dodawanie nowych zbiorów danych Main scenario
+00: Administrator <select> Dodawanie nowych zbiorów danych
+01: System <show> formularz dodawania nowego zbioru danych
+02: Administrator <enter> źródło_danych
+03: Administrator <enter> metadane
+04: Administrator <select> Zatwierdź (invoke UC0008: Walidacja danych)
+05: System <execute> walidacja danych
+06: System <show> walidacja sukces message
+07: System <save> zbiór danych do Baza danych
+08: System <show> komunikat o pomyślnym dodaniu zbioru danych
+09: Administrator <select> Close
+-> end ! OK
+
+Scenario
+02: -"-
+B1: System <show> walidacja negatywna message
+B2: Administrator <select> Close
+-> rejoin 01
+
+Scenario
+02: -"-
+C1: System <error> awaria podczas walidacji
+C2: Administrator <select> Anuluj
+-> end ! CANCEL
+
+Data Zbiór danych {
+  źródło_danych: text,
+  metadane: Metadane[],
+  data_dodania: date,
+  data_aktualizacji: date
+}
+
+Data Metadane {
+  nazwa: text,
+  kategoria: text,
+  typ: text,
+  opis: text
+}
+
+Data Formularz nowego zbioru danych {
+  źródło_danych: text,
+  metadane: Metadane[]
+}
+
+Data walidacja danych form {
+  formularz: Formularz nowego zbioru danych
+}
+
+Data walidacja sukces message {
+  informacja: text
+}
+
+Data walidacja negatywna message {
+  informacja: text,
+  lista_błędów: text
+}
+
+Data awaria message {
+  informacja: text,
+  szczegóły: text
+}
