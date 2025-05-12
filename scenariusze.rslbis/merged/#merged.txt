@@ -64,7 +64,7 @@ Scenario
 C5: User <invoke> Wyswietl historie zbiorow danych
 -> rejoin 01
 
-Scenario:
+Scenario
 04: -"-
 D5: User <invoke> Wystawienie oceny zbioru danych
 -> rejoin 04
