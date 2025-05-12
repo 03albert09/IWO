@@ -1,0 +1,59 @@
+Use case Start Main scenario
+00: Uzytkownik <select> application
+01: System <show> main menu
+02: Uzytkownik <invoke> eksportowanie danych
+-> rejoin 01
+
+Use case eksportowanie danych Main scenario
+00: Uzytkownik <select> eksport danych
+01: System <check> dane do eksportu
+[dane do eksportu ? present]
+02: System <show> wybor formatu eksportu
+03: Uzytkownik <select> format eksportu
+04: System <execute> eksport danych
+[eksport ? success]
+05: System <show> komunikat sukcesu
+06: Uzytkownik <select> zamknij
+-> end ! SUCCESS
+
+Scenario
+01: -"-
+A1: Uzytkownik <select> brak danych do eksportu
+A2: System <show> blad braku danych
+A3: Uzytkownik <select> zamknij
+-> end ! FAILURE
+
+Scenario
+04: -"-
+B1: Uzytkownik <select> blad generowania
+B2: System <show> komunikat bledu generowania
+B3: Uzytkownik <select> zamknij
+-> end ! FAILURE
+
+Scenario
+04: -"-
+C1: Uzytkownik <select> blad pobierania
+C2: System <show> komunikat bledu pobierania
+C3: Uzytkownik <select> zamknij
+-> end ! FAILURE
+
+Data dane do eksportu {
+ format: text,
+ zawartosc: text
+}
+
+Data komunikat sukcesu {
+ message: text
+}
+
+Data blad braku danych {
+ message: text
+}
+
+Data komunikat bledu generowania {
+ message: text
+}
+
+Data komunikat bledu pobierania {
+ message: text
+}
