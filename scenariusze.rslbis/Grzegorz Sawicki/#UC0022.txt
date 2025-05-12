@@ -1,10 +1,10 @@
 Use case Start Main scenario
 00: User <select> application
 01: System <show> main menu
-02: User <invoke> Zmiana hasla
+02: User <invoke> Zmiana hasla uzytkownika
 -> rejoin 01
 
-Use case Zmiana hasla Main scenario
+Use case Zmiana hasla uzytkownika Main scenario
 00: User <select> Zmien haslo
 01: System <show> zmiana hasla form
 02: User <enter> hasla
