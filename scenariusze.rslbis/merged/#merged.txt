@@ -332,14 +332,14 @@ Scenario
 06: -"-
 B7: User <select> dane niepoprawne
 B8: System <show> walidacja nieudana
-B9: User <select> close
+B9: User <select> zamknij
 -> rejoin 04
 
 Scenario
 06: -"-
 C7: User <select> no db connection
 C8: System <show> db error
-C9: User <select> close
+C9: User <select> zamknij
 -> end ! FAILURE
 
 Data uzytkownik {
