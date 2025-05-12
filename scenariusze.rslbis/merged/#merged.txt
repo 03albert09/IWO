@@ -1,7 +1,7 @@
 Use case Start Main scenario 
 00: User <select> application  
 01: System <show> main menu  
-02: User <invoke> Add User, Wyswietlenie zbiorow danych, Edycja zbioru, Wyszukanie zbiorow danych, Logowanie do systemu, Filtrowanie zbiorow danych, Importowanie danych, Przyznanie dostepu do systemu, Walidacja danych, listowanie schematow danych, Modyfikacja dostepu do systemu
+02: User <invoke> Add User, Wyswietlenie zbiorow danych, Edycja zbioru, Wyszukanie zbiorow danych, Logowanie do systemu, Filtrowanie zbiorow danych, Importowanie danych, Przyznanie dostepu do systemu, Walidacja danych, listowanie schematow danych, Modyfikacja dostepu do systemu, Zmiana hasla uzytkownika
 -> rejoin 01
 
 
@@ -318,7 +318,7 @@ B3: System <show> brak uprawnie message
 B4: Uzytkownik <select> zamknij
 -> end ! FAILURE
 
-Use case Modyfikacja dostepu do systemu
+Use case Modyfikacja dostepu do systemu Main scenario
 00: User <select> zmien dostep uzytkownikowi
 01: System <read> lista uzytkownikoww
 02: System <show> lista uzytkownikoww
@@ -346,7 +346,7 @@ C8: System <show> blad bazy danyoch
 C9: User <select> zamknij
 -> end ! FAILURE
 
-Use case Wystawienie oceny zbioru danych
+Use case Wystawienie oceny zbioru danych Main scenario
 00: Uzytkownik <select> wystawienie oceny zbioru danych
 01: System <show> wystawienia oceny form
 02: Uzytkownik <enter> ocena i komentarz
@@ -370,6 +370,42 @@ B2: Uzytkownik <select> blad bazy danych
 B3: System <show> db error message
 B4: Uzytkownik <select> zamknij
 -> end ! FAILURE
+
+Use case Zmiana hasla uzytkownika Main scenario
+00: User <select> Zmien haslo
+01: System <show> zmiana hasla form
+02: User <enter> hasla
+03: User <select> ok
+04: System <check> hasla
+05: System <execute> zmiana hasla method
+06: System <show> zmiana hasla confirm window
+07: User <select> zamknij
+-> end ! OK
+
+Scenario
+02: -"-
+A3: User <select> ok bledne dane
+A4: System <check> hasla
+A5: System <show> zmiana hasla zle dane window
+A6: User <select> ponow
+-> rejoin 01
+
+Scenario
+02: -"-
+B3: User <select> ok blad bazy danych
+B4: System <show> zmiana hasla blad bazy window
+B5: User <select> zamknij
+-> end ! FAILURE
+
+Scenario 
+01: -"-  
+C2: User <select> zamknij
+-> end ! CANCEL
+
+Data hasla {
+	StareHaslo: text,
+	NoweHaslo: text
+}
 
 Data uzytkownikk {
     id: text,
