@@ -1,0 +1,46 @@
+Use case Start Main scenario
+00: Uzytkownik <select> application
+01: System <show> main menu
+02: Uzytkownik <invoke> listowanie schematow danych
+-> rejoin 01
+
+Use case listowanie schematow danych Main scenario
+00: Uzytkownik <select> wyswietlenie schematow danych
+01: System <show> control flow menu
+02: Uzytkownik <select> lista schmeatow danych
+03: System <read> Schemalist
+04: System <show> Schemalist
+05: Uzytkownik <select> zamknij
+-> end ! SUCCESS
+
+Scenario
+01: -"-
+A2: Uzytkownik <select> brak poloczenia z baza danych
+A3: System <show> baza danych error message
+A4: Uzytkownik <select> zamknij
+-> end ! FAILURE
+
+Scenario
+01: -"-
+B2: Uzytkownik <select> brak uprawnien
+B3: System <show> brak uprawnien message
+B4: Uzytkownik <select> zamknij
+-> end ! FAILURE
+
+Data schematy danych {
+	nazwa: text,
+	CreatedDate: integer
+}
+
+Data Schemalist {
+	schema: [schematy danych]
+}
+
+
+Data baza danych error message {
+	message: text
+}
+
+Data brak uprawnien message {
+	nazwa: text
+}

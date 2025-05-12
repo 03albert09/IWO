@@ -1,7 +1,7 @@
 Use case Start Main scenario 
 00: User <select> application  
 01: System <show> main menu  
-02: User <invoke> Add User, Wyswietlenie zbiorow danych, Edycja zbioru, Wyszukanie zbiorow danych, Logowanie do systemu, Filtrowanie zbiorow danych, Importowanie danych, Przyznanie dostepu do systemu, Walidacja danych
+02: User <invoke> Add User, Wyswietlenie zbiorow danych, Edycja zbioru, Wyszukanie zbiorow danych, Logowanie do systemu, Filtrowanie zbiorow danych, Importowanie danych, Przyznanie dostepu do systemu, Walidacja danych, listowanie schematow danych
 -> rejoin 01
 
 
@@ -290,6 +290,31 @@ Scenario
 A1: Dostawca <select> anuluj
 -> end ! CANCEL
 
+
+Use case listowanie schematow danych Main scenario
+00: Uzytkownik <select> wyswietlenie schematow danych
+01: System <show> ctrl flow menu
+02: Uzytkownik <select> lista schmeatow danych
+03: System <read> Schemalist
+04: System <show> Schemalist
+05: Uzytkownik <select> zamknij
+-> end ! SUCCESS
+
+Scenario
+01: -"-
+A2: Uzytkownik <select> brak poloczenia z baza danych
+A3: System <show> baza dany error message
+A4: Uzytkownik <select> zamknij
+-> end ! FAILURE
+
+Scenario
+01: -"-
+B2: Uzytkownik <select> brak uprawnien
+B3: System <show> brak uprawnie message
+B4: Uzytkownik <select> zamknij
+-> end ! FAILURE
+
+
 Data plik walidacyjny {
   nazwa: text,
   format: text,
@@ -446,3 +471,26 @@ Data historia zmian zbioru danych {
 Trigger *button* zamknij {Zamknij}
 Trigger *button* ponow logowanie {Ponow logowanie}
 Trigger *button* anuluj logowanie {Anuluj logowanie}
+
+
+
+
+
+
+Data schematy danych {
+	nazwa: text,
+	CreatedDate: integer
+}
+
+Data Schemalist {
+	schema: [schematy danych]
+}
+
+
+Data baza dany error message {
+	message: text
+}
+
+Data brak uprawnie message {
+	nazwa: text
+}
