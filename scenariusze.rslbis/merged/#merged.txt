@@ -42,7 +42,8 @@ Use case Wyswietlenie zbiorow danych Main scenario
 02: User <select> lista zbiorow danych
 03: System <read> zbior danych list
 04: System <show> zbior danych list
-05: User <select> zamknij
+05: User <invoke> Wystawienie oceny zbioru danych
+06: User <select> zamknij
 -> end ! SUCCESS
 
 Scenario
@@ -315,6 +316,32 @@ B4: Uzytkownik <select> zamknij
 -> end ! FAILURE
 
 
+Use case Wystawienie oceny zbioru danych
+00: Uzytkownik <select> wystawienie oceny zbioru danych
+01: System <show> wystawienia oceny form
+02: Uzytkownik <enter> ocena i komentarz
+03: Uzytkownik <select> przeslij ocene
+04: System <check> ocena i komentarz
+05: System <execute> dodaj o ocene i komentarz i licz srednia
+06: System <show> success message
+07: Uzytkownik <select> zamknij
+-> end ! SUCCESS
+
+Scenario
+02: -"-
+A3: Uzytkownik <select> nieprawidlowa wartosc oceny
+A4: System <show> nieprawidlowa wartosc oceny message
+A5: Uzytkownik <select> zamknij
+-> end ! FAILURE
+
+Scenario
+02: -"-
+B2: Uzytkownik <select> blad bazy danych
+B3: System <show> db error message
+B4: Uzytkownik <select> zamknij
+-> end ! FAILURE
+
+
 Data plik walidacyjny {
   nazwa: text,
   format: text,
@@ -492,5 +519,22 @@ Data baza dany error message {
 }
 
 Data brak uprawnie message {
+	nazwa: text
+}
+
+Data wystawienia oceny form {
+	ocena: integer,
+	komentarz: text
+}
+
+Data success message {
+	nazwa: text
+}
+
+Data db error message {
+	nazwa: text
+}
+
+Data nieprawidlowa wartosc oceny message {
 	nazwa: text
 }
