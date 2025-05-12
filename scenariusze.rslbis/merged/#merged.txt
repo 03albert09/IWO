@@ -338,7 +338,7 @@ B9: User <select> zamknij
 Scenario
 06: -"-
 C7: User <select> no db connection
-C8: System <show> db error
+C8: System <show> blad bazy danyoch
 C9: User <select> zamknij
 -> end ! FAILURE
 
