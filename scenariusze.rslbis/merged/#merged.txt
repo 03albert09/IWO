@@ -320,9 +320,9 @@ B4: Uzytkownik <select> zamknij
 
 Use case Modyfikacja dostepu do systemu
 00: User <select> zmien dostep uzytkownikowi
-01: System <read> lista uzytkownikow
-02: System <show> lista uzytkownikow
-03: User <select> uzytkownik
+01: System <read> lista uzytkownikoww
+02: System <show> lista uzytkownikoww
+03: User <select> uzytkownikk
 04: System <show> widok okreslania dostepu
 05: User <select> ustaw dostep
 06: System <show> zatwierdzanie zmian
@@ -345,19 +345,6 @@ C7: User <select> no db connection
 C8: System <show> blad bazy danyoch
 C9: User <select> zamknij
 -> end ! FAILURE
-
-Data uzytkownik {
-    id: text,
-    imie: text,
-    nazwisko: text,
-    login: text,
-    haslo: text,
-    dostepy: text
-}
-
-Data lista uzytkownikow {
-  uzytkownicy: [uzytkownik]
-}
 
 Use case Wystawienie oceny zbioru danych
 00: Uzytkownik <select> wystawienie oceny zbioru danych
@@ -384,6 +371,18 @@ B3: System <show> db error message
 B4: Uzytkownik <select> zamknij
 -> end ! FAILURE
 
+Data uzytkownikk {
+    id: text,
+    imie: text,
+    nazwisko: text,
+    login: text,
+    haslo: text,
+    dostepy: text
+}
+
+Data lista uzytkownikoww {
+  uzytkownicy: [uzytkownikk]
+}
 
 Data plik walidacyjny {
   nazwa: text,
