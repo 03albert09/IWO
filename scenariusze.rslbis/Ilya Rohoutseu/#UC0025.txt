@@ -1,0 +1,42 @@
+Use case Start Main scenario 
+00: User <select> application  
+01: System <show> main menu  
+02: User <invoke> Delete User
+-> rejoin 01
+
+
+Use case Delete User Main scenario 
+00: Admin <select> Usun uzytkownika  
+01: System <show> usun uzytkownika form  
+02: Admin <enter> uzytkownik
+03: Admin <select> Usun uzytkownika  
+04: System <check> uzytkownik
+05: System <execute> usun uzytkownika  
+06: System <show> uzytkownik poprawnie usuniety window  
+07: Admin <select> Close  
+-> end ! OK
+
+Scenario 
+02: -"-  
+A1: Admin <select> Usun z bledem danych
+A2: System <show> blad danych error message
+A3: Admin <select> Close  
+-> rejoin 01
+
+
+Scenario 
+02: -"-  
+B1: Admin <select> Usun z bledem bazy danych 
+B2: System <show> baza danych error message
+B3: Admin <select> powrot  
+-> rejoin 01
+
+Scenario 
+01: -"-  
+C1: Admin <select> Cancel  
+-> end ! CANCEL
+ 
+Data uzytkownik {
+  Id : text,
+  Email : text 
+}
