@@ -1,0 +1,48 @@
+Use case Start Main scenario
+00: User <select> application
+01: System <show> main menu
+02: User <invoke> Modyfikacja dostepu do systemu
+-> rejoin 01
+
+
+Use case Modyfikacja dostepu do systemu
+00: User <select> zmien dostep uzytkownikowi
+01: System <read> lista uzytkownikow
+02: System <show> lista uzytkownikow
+03: User <select> uzytkownik
+04: System <show> widok okreslania dostepu
+05: User <select> ustaw dostep
+06: System <show> zatwierdzanie zmian
+07: User <select> zatwierdz
+08: System <show> dostep zmieniony
+09: User <select> close
+
+-> end ! OK
+
+Scenario
+06: -"-
+B7: User <select> dane niepoprawne
+B8: System <show> walidacja nieudana
+B9: User <select> close
+-> rejoin 04
+
+Scenario
+06: -"-
+C7: User <select> no db connection
+C8: System <show> db error
+C9: User <select> close
+-> end ! FAILURE
+
+Data uzytkownik {
+    id: text,
+    imie: text,
+    nazwisko: text,
+    login: text,
+    haslo: text,
+    dostepy: text
+}
+
+Data lista uzytkownikow {
+  uzytkownicy: [uzytkownik]
+}
+
