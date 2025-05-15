@@ -1,7 +1,7 @@
 Use case Start Main scenario 
 00: User <select> application  
 01: System <show> main menu  
-02: User <invoke> Add User, Wyswietlenie zbiorow danych, Edycja zbioru, Wyszukanie zbiorow danych, Logowanie do systemu, Filtrowanie zbiorow danych, Importowanie danych, Przyznanie dostepu do systemu, Walidacja danych, listowanie schematow danych
+02: User <invoke> Add User, Wyswietlenie zbiorow danych, Edycja zbioru, Wyszukanie zbiorow danych, Logowanie do systemu, Filtrowanie zbiorow danych, Importowanie danych, Przyznanie dostepu do systemu, Walidacja danych, listowanie schematow danych, Modyfikacja dostepu do systemu, Zmiana hasla uzytkownika
 -> rejoin 01
 
 
@@ -69,6 +69,10 @@ Scenario
 D5: User <invoke> Wyswietl historie zbiorow danych
 -> rejoin 01
 
+Scenario
+04: -"-
+D5: User <invoke> Wystawienie oceny zbioru danych
+-> rejoin 01
 
 Use case Logowanie do systemu Main scenario
 00: Uzytkownik <select> logowanie
@@ -346,6 +350,90 @@ B7: System <show> blad zapisu oceny error message
 B8: User <select> anuluj
 -> end ! FAILURE
 
+Use case Modyfikacja dostepu do systemu Main scenario
+00: User <select> zmien dostep uzytkownikowi
+01: System <read> lista uzytkownikoww
+02: System <show> lista uzytkownikoww
+03: User <select> uzytkownikk
+04: System <show> widok okreslania dostepu
+05: User <select> ustaw dostep
+06: System <show> zatwierdzanie zmian
+07: User <select> zatwierdz
+08: System <show> dostep zmieniony
+09: User <select> close
+
+-> end ! OK
+
+Scenario
+06: -"-
+B7: User <select> dane niepoprawne
+B8: System <show> walidacja nieudana
+B9: User <select> zamknij
+-> rejoin 04
+
+Scenario
+06: -"-
+C7: User <select> no db connection
+C8: System <show> blad bazy danyoch
+C9: User <select> zamknij
+-> end ! FAILURE
+
+Use case Wystawienie oceny zbioru danych Main scenario
+00: Uzytkownik <select> wystawienie oceny zbioru danych
+01: System <show> wystawienia oceny form
+02: Uzytkownik <enter> ocena i komentarz
+03: Uzytkownik <select> przeslij ocene
+04: System <check> ocena i komentarz
+05: System <execute> dodaj o ocene i komentarz i licz srednia
+06: System <show> success message
+07: Uzytkownik <select> zamknij
+-> end ! SUCCESS
+
+Scenario
+02: -"-
+A3: Uzytkownik <select> nieprawidlowa wartosc oceny
+A4: System <show> nieprawidlowa wartosc oceny message
+A5: Uzytkownik <select> zamknij
+-> end ! FAILURE
+
+Scenario
+02: -"-
+B2: Uzytkownik <select> blad bazy danych
+B3: System <show> db error message
+B4: Uzytkownik <select> zamknij
+-> end ! FAILURE
+
+Use case Zmiana hasla uzytkownika Main scenario
+00: User <select> Zmien haslo
+01: System <show> zmiana hasla form
+02: User <enter> hasla
+03: User <select> ok
+04: System <check> hasla
+05: System <execute> zmiana hasla method
+06: System <show> zmiana hasla confirm window
+07: User <select> zamknij
+-> end ! OK
+
+Scenario
+02: -"-
+A3: User <select> ok bledne dane
+A4: System <check> hasla
+A5: System <show> zmiana hasla zle dane window
+A6: User <select> ponow
+-> rejoin 01
+
+Scenario
+02: -"-
+B3: User <select> ok blad bazy danych
+B4: System <show> zmiana hasla blad bazy window
+B5: User <select> zamknij
+-> end ! FAILURE
+
+Scenario 
+01: -"-  
+C2: User <select> zamknij
+-> end ! CANCEL
+
 Data ocena {
   ocena: integer,
   komentarz: text
@@ -353,6 +441,24 @@ Data ocena {
 
 Data zmiana oceny success message {
   message: text
+}
+
+Data hasla {
+	StareHaslo: text,
+	NoweHaslo: text
+}
+
+Data uzytkownikk {
+    id: text,
+    imie: text,
+    nazwisko: text,
+    login: text,
+    haslo: text,
+    dostepy: text
+}
+
+Data lista uzytkownikoww {
+  uzytkownicy: [uzytkownikk]
 }
 
 Data plik walidacyjny {
@@ -527,5 +633,22 @@ Data baza dany error message {
 }
 
 Data brak uprawnie message {
+	nazwa: text
+}
+
+Data wystawienia oceny form {
+	ocena: integer,
+	komentarz: text
+}
+
+Data success message {
+	nazwa: text
+}
+
+Data db error message {
+	nazwa: text
+}
+
+Data nieprawidlowa wartosc oceny message {
 	nazwa: text
 }
