@@ -1,6 +1,7 @@
 Use case Start Main scenario 
 00: User <select> application  
 01: System <show> main menu  
+
 02: User <invoke> Add User, Wyswietlenie zbiorow danych, Edycja zbioru, Wyszukanie zbiorow danych, Logowanie do systemu, Filtrowanie zbiorow danych, Importowanie danych, Przyznanie dostepu do systemu, Walidacja danych, listowanie schematow danych, Modyfikacja dostepu do systemu, Zmiana hasla uzytkownika, Lista wygenerowanych raportow, Zgloszenie bledow danych, Tworzenie schematow danych  
 -> rejoin 01
 
@@ -43,6 +44,7 @@ Use case Wyswietlenie zbiorow danych Main scenario
 03: System <read> zbior danych list
 04: System <show> zbior danych list
 05: User <select> zamknij
+05.1: User <invoke> Eksportowanie danych
 -> end ! SUCCESS
 
 Scenario
@@ -461,6 +463,38 @@ Scenario
 C1: User <select> Cancel  
 -> end ! CANCEL
 
+Use case Eksportowanie danych Main scenario
+00: User <select> Eksport danych
+01: System <show> format eksportu form
+02: User <enter> format eksportu
+03: User <select> pobierz
+04: System <check> format eksportu
+05: System <show> komunikat sukcesu
+06: User <select> zamknij
+-> end ! SUCCESS
+
+Scenario 01: -"-  
+A1: User <select> Pobierz z brakiem dannych
+A2: System <show> blad braku danych
+A3: User <select> zamknij
+-> rejoin 01
+
+Scenario 02: -"-  
+B1: User <select> Pobierz z bledem generowania
+B2: System <show> komunikat bledu generowania
+B3: User <select> zamknij
+-> rejoin 01
+
+Scenario 03: -"-  
+C1: User <select> Pobierz z bledem pobierania
+C2: System <show> komunikat bledu pobierania
+C3: User <select> zamknij
+-> rejoin 01
+
+Scenario 04: -"-  
+D1: User <select> Cancel
+-> end ! CANCEL
+
 Use case Tworzenie schematow danych Main scenario 
 00: Admin <select> Dodaj nowy schemat danych  
 01: System <show> dodaj nowy schemat danych form  
@@ -473,23 +507,19 @@ Use case Tworzenie schematow danych Main scenario
 08: Admin <select> Close  
 -> end ! OK
 
-Scenario 
-02: -"-  
+Scenario 01: -"-  
 A1: Admin <select> Schemat niepoprawny
 A2: System <show> schemat niepoprawny error message
 A3: Admin <select> Wroc do edycji
 -> rejoin 01
 
-
-Scenario 
-02: -"-  
+Scenario 02: -"-  
 B1: Admin <select> Blad synchronizacji z CKAN 
 B2: System <show> blad synchronizacji z CKAN error message
-B3: Admin <select> Close
+B3: Admin <select> Close 
 -> end ! CANCEL
 
-Scenario 
-01: -"-  
+Scenario 03: -"-  
 C1: Admin <select> Cancel  
 -> end ! CANCEL
 
@@ -505,25 +535,23 @@ Use case Usuwanie schematu danych Main scenario
 08: Administrator <select> Close
 -> end ! OK
 
-Scenario
-02: -"-
+Scenario 01: -"-  
 A1: Administrator <select> Schemat jest powiazany z istniejacym zbiorem
 A2: System <show> blad powiazania error message
 A3: Administrator <select> Zamknij
--> rejoin 01
+-> end ! CANCEL
 
-Scenario
-02: -"-
+Scenario 02: -"-  
 B1: Administrator <select> Blad synchronizacji
 B2: System <show> blad synchronizacji error message
 B3: Administrator <select> Zamknij
 B4: System <execute> usunschematdanych
 -> rejoin 01
 
-Scenario
-01: -"-
+Scenario 03: -"-  
 C1: Administrator <select> anuluj
 -> end ! CANCEL
+
 
 Data schemat danych do usuniecia {
   ID: text,
@@ -794,3 +822,19 @@ Data status zgloszenia {
     uprzywilejowany: boolean,
     status: status zgloszenia
 }
+
+Data dane eksportu {
+  format: text,
+  zawartosc: text
+}
+
+Data format eksportu{
+  format: text
+}
+
+Data eksport danych {
+  status: text,
+  format: text,
+  plik: text
+}
+
