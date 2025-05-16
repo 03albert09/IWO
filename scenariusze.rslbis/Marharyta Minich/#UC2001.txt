@@ -1,0 +1,59 @@
+Use case Start Main scenario
+00: User <select> application
+01: System <show> main menu
+02: User <invoke> Zgloszenie bledow danych
+-> rejoin 01
+
+Use case Zgloszenie bledow danych Main scenario
+00: User <select> Zglos blad danych
+01: System <show> zglos blad danych form
+02: User <enter> kryteria bledu
+03: User <select> Zapisz standartowo
+04: System <check> kryteria bledu 
+05: System <show> Zgloszenie zostalo zapisane 
+06: User <select> Close
+-> end ! OK
+
+Scenario
+02: -"-
+A1:User <select> Zapisz z bledem bazy
+A2: System <show> Blad polaczenia z baza danych
+A3: User <select> Close
+-> rejoin 01
+
+Scenario
+02: -"-
+B1: User <select> Zapisz z priorytetem
+B2: System <check> kryteria bledu
+B3: System <show> Zgloszenie zostalo zapisane 
+B4: User <select> powrot
+-> rejoin 01
+
+Scenario 
+01: -"-  
+C1: User <select> Cancel  
+-> end ! CANCEL
+
+Data kryteria bledu {
+   kategoria: text,
+   opis: text
+}
+
+Data status zgloszenia {
+    oczekujacy : boolean,
+    zatwierdzone: boolean,
+    odrzucone: boolean
+}
+
+ Data blad danych {
+    zbiorId : integer,
+    kategoria: text,
+    opis: text,
+    uzytkownikId : integer,
+    uprzywilejowany: boolean,
+    status: status zgloszenia
+}
+
+ 
+
+ 
