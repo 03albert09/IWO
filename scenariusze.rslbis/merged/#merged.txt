@@ -356,7 +356,6 @@ Use case Modyfikacja dostepu do systemu Main scenario
 07: User <select> zatwierdz
 08: System <show> dostep zmieniony
 09: User <select> close
-
 -> end ! OK
 
 Scenario
