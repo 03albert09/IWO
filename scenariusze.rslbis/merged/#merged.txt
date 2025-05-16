@@ -1,7 +1,7 @@
 Use case Start Main scenario 
 00: User <select> application  
 01: System <show> main menu  
-02: User <invoke> Add User, Wyswietlenie zbiorow danych, Edycja zbioru, Wyszukanie zbiorow danych, Logowanie do systemu, Filtrowanie zbiorow danych, Importowanie danych, Przyznanie dostepu do systemu, Walidacja danych, listowanie schematow danych, Modyfikacja dostepu do systemu, Zmiana hasla uzytkownika, Lista wygenerowanych raportow, Zgloszenie bledow danych
+02: User <invoke> Add User, Wyswietlenie zbiorow danych, Edycja zbioru, Wyszukanie zbiorow danych, Logowanie do systemu, Filtrowanie zbiorow danych, Importowanie danych, Przyznanie dostepu do systemu, Walidacja danych, listowanie schematow danych, Modyfikacja dostepu do systemu, Zmiana hasla uzytkownika, Lista wygenerowanych raportow, Zgloszenie bledow danych, Tworzenie schematow danych 
 -> rejoin 01
 
 
@@ -456,6 +456,43 @@ Scenario
 C1: User <select> Cancel  
 -> end ! CANCEL
 
+Use case Tworzenie schematow danych Main scenario 
+00: Admin <select> Dodaj nowy schemat danych  
+01: System <show> dodaj nowy schemat danych form  
+02: Admin <enter> schemat zbioru danych
+03: Admin <select> Dodaj schemat  
+04: System <check> schemat zbioru danych
+05: System <execute> synchronizuj z CKAN
+06: System <execute> zapisz schemat do bazy danych
+07: System <show> schemat poprawnie dodany window  
+08: Admin <select> Close  
+-> end ! OK
+
+Scenario 
+02: -"-  
+A1: Admin <select> Schemat niepoprawny
+A2: System <show> schemat niepoprawny error message
+A3: Admin <select> Wroc do edycji
+-> rejoin 01
+
+
+Scenario 
+02: -"-  
+B1: Admin <select> Blad synchronizacji z CKAN 
+B2: System <show> blad synchronizacji z CKAN error message
+B3: Admin <select> Close
+-> end ! CANCEL
+
+Scenario 
+01: -"-  
+C1: Admin <select> Cancel  
+-> end ! CANCEL
+
+Data schemat zbioru danych {
+  nazwa: text,
+  format: text,
+  wartosc: text
+}
 
 Data hasla {
 	StareHaslo: text,
@@ -701,4 +738,3 @@ Data status zgloszenia {
     uprzywilejowany: boolean,
     status: status zgloszenia
 }
-
