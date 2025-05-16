@@ -1,7 +1,8 @@
 Use case Start Main scenario 
 00: User <select> application  
 01: System <show> main menu  
-02: User <invoke> Add User, Wyswietlenie zbiorow danych, Edycja zbioru, Wyszukanie zbiorow danych, Logowanie do systemu, Filtrowanie zbiorow danych, Importowanie danych, Przyznanie dostepu do systemu, Walidacja danych, listowanie schematow danych, Modyfikacja dostepu do systemu, Zmiana hasla uzytkownika, Lista wygenerowanych raportow, Zgloszenie bledow danych 
+
+02: User <invoke> Add User, Wyswietlenie zbiorow danych, Edycja zbioru, Wyszukanie zbiorow danych, Logowanie do systemu, Filtrowanie zbiorow danych, Importowanie danych, Przyznanie dostepu do systemu, Walidacja danych, listowanie schematow danych, Modyfikacja dostepu do systemu, Zmiana hasla uzytkownika, Lista wygenerowanych raportow, Zgloszenie bledow danych, Tworzenie schematow danych  
 -> rejoin 01
 
 
@@ -319,6 +320,11 @@ B3: System <show> brak uprawnie message
 B4: Uzytkownik <select> zamknij
 -> end ! FAILURE
 
+Scenario
+01: -"-
+C2: Administrator <invoke> Usuwanie schematu danych
+-> end ! SUCCESS
+
 Use case Modyfikacja dostepu do systemu Main scenario
 00: User <select> zmien dostep uzytkownikowi
 01: System <read> lista uzytkownikoww
@@ -459,39 +465,118 @@ C1: User <select> Cancel
 
 Use case Eksportowanie danych Main scenario
 00: User <select> Eksport danych
-01: System <show>  format eksportu form
+01: System <show> format eksportu form
 02: User <enter> format eksportu
 03: User <select> pobierz
-04: System <check> format eksportu 
+04: System <check> format eksportu
 05: System <show> komunikat sukcesu
 06: User <select> zamknij
 -> end ! SUCCESS
 
-Scenario
-02: -"-
+Scenario 01: -"-  
 A1: User <select> Pobierz z brakiem dannych
 A2: System <show> blad braku danych
 A3: User <select> zamknij
 -> rejoin 01
 
-Scenario
-02: -"-
+Scenario 02: -"-  
 B1: User <select> Pobierz z bledem generowania
 B2: System <show> komunikat bledu generowania
 B3: User <select> zamknij
 -> rejoin 01
 
-Scenario
-02: -"-
+Scenario 03: -"-  
 C1: User <select> Pobierz z bledem pobierania
 C2: System <show> komunikat bledu pobierania
 C3: User <select> zamknij
 -> rejoin 01
 
-Scenario 
-01: -"-  
-B1: User <select> Cancel  
+Scenario 04: -"-  
+D1: User <select> Cancel
 -> end ! CANCEL
+
+Use case Tworzenie schematow danych Main scenario 
+00: Admin <select> Dodaj nowy schemat danych  
+01: System <show> dodaj nowy schemat danych form  
+02: Admin <enter> schemat zbioru danych
+03: Admin <select> Dodaj schemat  
+04: System <check> schemat zbioru danych
+05: System <execute> synchronizuj z CKAN
+06: System <execute> zapisz schemat do bazy danych
+07: System <show> schemat poprawnie dodany window  
+08: Admin <select> Close  
+-> end ! OK
+
+Scenario 01: -"-  
+A1: Admin <select> Schemat niepoprawny
+A2: System <show> schemat niepoprawny error message
+A3: Admin <select> Wroc do edycji
+-> rejoin 01
+
+Scenario 02: -"-  
+B1: Admin <select> Blad synchronizacji z CKAN 
+B2: System <show> blad synchronizacji z CKAN error message
+B3: Admin <select> Close 
+-> end ! CANCEL
+
+Scenario 03: -"-  
+C1: Admin <select> Cancel  
+-> end ! CANCEL
+
+Use case Usuwanie schematu danych Main scenario
+00: Administrator <select> usuwanie schematu danych
+01: System <show> schematdanychdousuniecia
+02: Administrator <enter> schemat danych do usuniecia
+03: Administrator <select> zatwierdz usuniecie
+04: System <check> schemat danych do usuniecia
+05: System <execute> usunschematdanych
+06: System <execute> synchronizacjazCKAN
+07: System <show> komunikatsukcesuwindow
+08: Administrator <select> Close
+-> end ! OK
+
+Scenario 01: -"-  
+A1: Administrator <select> Schemat jest powiazany z istniejacym zbiorem
+A2: System <show> blad powiazania error message
+A3: Administrator <select> Zamknij
+-> end ! CANCEL
+
+Scenario 02: -"-  
+B1: Administrator <select> Blad synchronizacji
+B2: System <show> blad synchronizacji error message
+B3: Administrator <select> Zamknij
+B4: System <execute> usunschematdanych
+-> rejoin 01
+
+Scenario 03: -"-  
+C1: Administrator <select> anuluj
+-> end ! CANCEL
+
+
+Data schemat danych do usuniecia {
+  ID: text,
+  nazwa: text
+}
+
+Data blad powiazania error message {
+  informacja: text,
+  szczegoly: text
+}
+
+Data blad synchronizacji error message {
+  informacja: text,
+  szczegoly: text
+}
+
+Data komunikat sukcesu window {
+  informacja: text
+}
+
+Data schemat zbioru danych {
+  nazwa: text,
+  format: text,
+  wartosc: text
+}
 
 Data hasla {
 	StareHaslo: text,
