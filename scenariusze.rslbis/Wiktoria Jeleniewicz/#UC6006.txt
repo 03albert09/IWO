@@ -1,0 +1,39 @@
+Use case Start Main scenario 
+00: Uzytkownik <select> application  
+01: System <show> main menu
+02: Uzytkownik <invoke> Lista wygenerowanych raportow
+-> end ! OK
+
+Use case Lista wygenerowanych raportow Main scenario
+00: Uzytkownik <select> wyswietl liste raportow
+01: System <show> okno listy raportow
+02: Uzytkownik <select> istniejaca lista raportow
+03: System <read> lista raportow
+04: System <check> lista raportow
+05: System <show> lista raportow
+06: Uzytkownik <select> zamknij
+-> end ! OK
+
+Scenario
+01: -"-
+A1: Uzytkownik <select> lista raportow z bledem bazy danych
+A2: System <show> komunikat o bledzie
+A3: Uzytkownik <select> zamknij
+-> end ! CANCEL
+
+Scenario
+01: -"-
+B1: Uzytkownik <select> pusta lista raportow
+B2: System <show> komunikat o braku raportow
+B3: Uzytkownik <select> zamknij
+-> end ! CANCEL
+
+Data raport {
+  data: text,
+  rozmiar: integer,
+  opis: text
+}
+
+Data lista raportow {
+  raporty: [raport]
+}
