@@ -40,7 +40,9 @@ Scenario
 B1: User <select> Cancel  
 -> end ! CANCEL
 
-
+Data format eksportu{
+    format:text
+}
 
 Data dane eksportu {
   format: text,
