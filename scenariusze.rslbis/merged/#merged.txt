@@ -1,7 +1,7 @@
 Use case Start Main scenario 
 00: User <select> application  
 01: System <show> main menu  
-02: User <invoke> Add User, Wyswietlenie zbiorow danych, Edycja zbioru, Wyszukanie zbiorow danych, Logowanie do systemu, Filtrowanie zbiorow danych, Importowanie danych, Przyznanie dostepu do systemu, Walidacja danych, listowanie schematow danych, Modyfikacja dostepu do systemu, Zmiana hasla uzytkownika, Lista wygenerowanych raportow, Zgloszenie bledow danych, Tworzenie schematow danych, Wyswietlenie historii ocen
+02: User <invoke> Add User, Wyswietlenie zbiorow danych, Edycja zbioru, Wyszukanie zbiorow danych, Logowanie do systemu, Filtrowanie zbiorow danych, Importowanie danych, Przyznanie dostepu do systemu, Walidacja danych, listowanie schematow danych, Modyfikacja dostepu do systemu, Zmiana hasla uzytkownika, Lista wygenerowanych raportow, Zgloszenie bledow danych, Tworzenie schematow danych
 -> rejoin 01
 
 
@@ -67,6 +67,11 @@ C5: User <invoke> Wyswietl historie zbiorow danych
 Scenario
 04: -"-
 D5: User <invoke> Wystawienie oceny zbioru danych
+-> rejoin 01
+
+Scenario
+04: -"-
+E5: User <invoke> Wyswietlenie historii ocen
 -> rejoin 01
 
 Use case Logowanie do systemu Main scenario
