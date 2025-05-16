@@ -1,7 +1,7 @@
 Use case Start Main scenario 
 00: User <select> application  
 01: System <show> main menu  
-02: User <invoke> Add User, Wyswietlenie zbiorow danych, Edycja zbioru, Wyszukanie zbiorow danych, Logowanie do systemu, Filtrowanie zbiorow danych, Importowanie danych, Przyznanie dostepu do systemu, Walidacja danych, listowanie schematow danych, Modyfikacja dostepu do systemu, Zmiana hasla uzytkownika, Lista wygenerowanych raportow, Zgloszenie bledow danych
+02: User <invoke> Add User, Wyswietlenie zbiorow danych, Edycja zbioru, Wyszukanie zbiorow danych, Logowanie do systemu, Filtrowanie zbiorow danych, Importowanie danych, Przyznanie dostepu do systemu, Walidacja danych, listowanie schematow danych, Modyfikacja dostepu do systemu, Zmiana hasla uzytkownika, Lista wygenerowanych raportow, Zgloszenie bledow danych , Eksportowanie danych
 -> rejoin 01
 
 
@@ -456,6 +456,41 @@ Scenario
 C1: User <select> Cancel  
 -> end ! CANCEL
 
+Use case Eksportowanie danych Main scenario
+00: User <select> Eksport danych
+01: System <show>  format eksportu form
+02: User <enter> format eksportu
+03: User <select> pobierz
+04: System <check> format eksportu 
+05: System <show> komunikat sukcesu
+06: User <select> zamknij
+-> end ! SUCCESS
+
+Scenario
+02: -"-
+A1: User <select> Pobierz z brakiem dannych
+A2: System <show> blad braku danych
+A3: User <select> zamknij
+-> rejoin 01
+
+Scenario
+02: -"-
+B1: User <select> Pobierz z bledem generowania
+B2: System <show> komunikat bledu generowania
+B3: User <select> zamknij
+-> rejoin 01
+
+Scenario
+02: -"-
+C1: User <select> Pobierz z bledem pobierania
+C2: System <show> komunikat bledu pobierania
+C3: User <select> zamknij
+-> rejoin 01
+
+Scenario 
+01: -"-  
+B1: User <select> Cancel  
+-> end ! CANCEL
 
 Data hasla {
 	StareHaslo: text,
@@ -700,5 +735,20 @@ Data status zgloszenia {
     uzytkownikId : integer,
     uprzywilejowany: boolean,
     status: status zgloszenia
+}
+
+Data dane eksportu {
+  format: text,
+  zawartosc: text
+}
+
+Data format eksportu{
+  format: text
+}
+
+Data eksport danych {
+  status: text,
+  format: text,
+  plik: text
 }
 
