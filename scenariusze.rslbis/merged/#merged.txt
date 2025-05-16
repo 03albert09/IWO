@@ -1,7 +1,7 @@
 Use case Start Main scenario 
 00: User <select> application  
 01: System <show> main menu  
-02: User <invoke> Add User, Wyswietlenie zbiorow danych, Edycja zbioru, Wyszukanie zbiorow danych, Logowanie do systemu, Filtrowanie zbiorow danych, Importowanie danych, Przyznanie dostepu do systemu, Walidacja danych, listowanie schematow danych, Modyfikacja dostepu do systemu, Zmiana hasla uzytkownika, Lista wygenerowanych raportow, Zgloszenie bledow danych, Tworzenie schematow danych, Usuwanie schematu danych  
+02: User <invoke> Add User, Wyswietlenie zbiorow danych, Edycja zbioru, Wyszukanie zbiorow danych, Logowanie do systemu, Filtrowanie zbiorow danych, Importowanie danych, Przyznanie dostepu do systemu, Walidacja danych, listowanie schematow danych, Modyfikacja dostepu do systemu, Zmiana hasla uzytkownika, Lista wygenerowanych raportow, Zgloszenie bledow danych, Tworzenie schematow danych  
 -> rejoin 01
 
 
@@ -317,6 +317,11 @@ B2: Uzytkownik <select> brak uprawnien
 B3: System <show> brak uprawnie message
 B4: Uzytkownik <select> zamknij
 -> end ! FAILURE
+
+Scenario
+01: -"-
+C2: Administrator <invoke> Usuwanie schematu danych
+-> end ! SUCCESS
 
 Use case Modyfikacja dostepu do systemu Main scenario
 00: User <select> zmien dostep uzytkownikowi
