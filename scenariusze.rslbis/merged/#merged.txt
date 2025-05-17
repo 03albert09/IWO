@@ -502,21 +502,21 @@ Use case Wyswietlenie historii ocen Main scenario
 00: Uzytkownik <select> wyswietlenie historii ocen
 01: System <read> historia ocen
 02: System <show> historia ocen
-03: Uzytkownik <select> zamknij
+03: Uzytkownik <select> zamknijj
 -> end ! SUCCESS
 
 Scenario
 02: -"-
 A1: Uzytkownik <select> komunikat o bledzie
 A2: System <show> komunikat o bledzie
-A3: Uzytkownik <select> zamknij
+A3: Uzytkownik <select> zamknija
 -> end ! FAILURE
 
 Scenario
 02: -"-
 B1: Uzytkownik <select> komunikat o pustej historii ocen
 B2: System <show> komunikat o pustej historii ocen
-B3: Uzytkownik <select> zamknij
+B3: Uzytkownik <select> zamknijb
 -> end ! FAILURE
 
 Use case Usuwanie schematu danych Main scenario
