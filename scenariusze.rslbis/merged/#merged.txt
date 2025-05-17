@@ -64,6 +64,11 @@ Scenario
 C5: User <invoke> Wyswietl historie zbiorow danych, Wystawienie oceny zbioru danych, Aktualizacja oceny zbioru danych
 -> rejoin 01
 
+Scenario
+04: -"-
+E5: User <invoke> Wyswietlenie historii ocen
+-> rejoin 01
+
 Use case Aktualizacja oceny zbioru danych Main scenario
 00: User <select> aktualizuj ocene
 01: System <show> ocena zbioru form
@@ -91,10 +96,7 @@ B7: System <show> blad zapisu oceny error message
 B8: User <select> anuluj
 -> end ! FAILURE
 
-Scenario
-04: -"-
-E5: User <invoke> Wyswietlenie historii ocen
--> rejoin 01
+
 
 Use case Logowanie do systemu Main scenario
 00: Uzytkownik <select> logowanie
