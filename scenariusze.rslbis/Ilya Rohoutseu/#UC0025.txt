@@ -19,7 +19,7 @@ Use case Delete User Main scenario
 Scenario 
 02: -"-  
 A1: Admin <select> Usun z bledem danych
-A2: System <show> blad danych error message
+A2: System <show> blad danych podczas usuwania error message
 A3: Admin <select> Close  
 -> rejoin 01
 
@@ -27,7 +27,7 @@ A3: Admin <select> Close
 Scenario 
 02: -"-  
 B1: Admin <select> Usun z bledem bazy danych 
-B2: System <show> baza danych error message
+B2: System <show> blad bazy danych podczas usuwania error message
 B3: Admin <select> powrot  
 -> rejoin 01
 
