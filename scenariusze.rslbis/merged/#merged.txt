@@ -91,6 +91,11 @@ B7: System <show> blad zapisu oceny error message
 B8: User <select> anuluj
 -> end ! FAILURE
 
+Scenario
+04: -"-
+E5: User <invoke> Wyswietlenie historii ocen
+-> rejoin 01
+
 Use case Logowanie do systemu Main scenario
 00: Uzytkownik <select> logowanie
 01: System <show> formularz logowania
@@ -514,6 +519,27 @@ Scenario
 C1: Admin <select> Cancel  
 -> end ! CANCEL
 
+Use case Wyswietlenie historii ocen Main scenario
+00: Uzytkownik <select> wyswietlenie historii ocen
+01: System <read> historia ocen
+02: System <show> historia ocen
+03: Uzytkownik <select> zamknijj
+-> end ! SUCCESS
+
+Scenario
+02: -"-
+A1: Uzytkownik <select> komunikat o bledzie
+A2: System <show> komunikat o bledzie
+A3: Uzytkownik <select> zamknija
+-> end ! FAILURE
+
+Scenario
+02: -"-
+B1: Uzytkownik <select> komunikat o pustej historii ocen
+B2: System <show> komunikat o pustej historii ocen
+B3: Uzytkownik <select> zamknijb
+-> end ! FAILURE
+
 Use case Usuwanie schematu danych Main scenario
 00: Administrator <select> usuwanie schematu danych
 01: System <show> schematdanychdousuniecia
@@ -856,4 +882,23 @@ Data status zgloszenia {
     uzytkownikId : integer,
     uprzywilejowany: boolean,
     status: status zgloszenia
+}
+
+Data ocena {
+	wartosc: integer,
+	dataWystawienia: date,
+	trescKomentarza: text
+}
+
+Data historia ocen {
+	idZbioru: text,
+	oceny: [ocena]
+}
+
+Data komunikat o bledzie {
+	tresc: text
+}
+
+Data komunikat o pustej historii ocen {
+	nazwa: text
 }
