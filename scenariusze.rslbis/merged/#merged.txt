@@ -1,7 +1,7 @@
 Use case Start Main scenario 
 00: User <select> application  
 01: System <show> main menu  
-02: User <invoke> Add User, Wyswietlenie zbiorow danych, Edycja zbioru, Wyszukanie zbiorow danych, Logowanie do systemu, Filtrowanie zbiorow danych, Importowanie danych, Przyznanie dostepu do systemu, Walidacja danych, listowanie schematow danych
+02: User <invoke> Add User, Wyswietlenie zbiorow danych, Edycja zbioru, Wyszukanie zbiorow danych, Logowanie do systemu, Filtrowanie zbiorow danych, Importowanie danych, Przyznanie dostepu do systemu, Walidacja danych, listowanie schematow danych, Modyfikacja dostepu do systemu, Zmiana hasla uzytkownika, Lista wygenerowanych raportow, Zgloszenie bledow danych, Tworzenie schematow danych, Delete User  
 -> rejoin 01
 
 
@@ -64,6 +64,10 @@ Scenario
 C5: User <invoke> Wyswietl historie zbiorow danych
 -> rejoin 01
 
+Scenario
+04: -"-
+D5: User <invoke> Wystawienie oceny zbioru danych
+-> rejoin 01
 
 Use case Logowanie do systemu Main scenario
 00: Uzytkownik <select> logowanie
@@ -314,6 +318,291 @@ B3: System <show> brak uprawnie message
 B4: Uzytkownik <select> zamknij
 -> end ! FAILURE
 
+Scenario
+01: -"-
+C2: Administrator <invoke> Usuwanie schematu danych
+-> end ! SUCCESS
+
+Use case Modyfikacja dostepu do systemu Main scenario
+00: User <select> zmien dostep uzytkownikowi
+01: System <read> lista uzytkownikoww
+02: System <show> lista uzytkownikoww
+03: User <select> uzytkownikk
+04: System <show> widok okreslania dostepu
+05: User <select> ustaw dostep
+06: System <show> zatwierdzanie zmian
+07: User <select> zatwierdz
+08: System <show> dostep zmieniony
+09: User <select> close
+
+-> end ! OK
+
+Scenario
+06: -"-
+B7: User <select> dane niepoprawne
+B8: System <show> walidacja nieudana
+B9: User <select> zamknij
+-> rejoin 04
+
+Scenario
+06: -"-
+C7: User <select> no db connection
+C8: System <show> blad bazy danyoch
+C9: User <select> zamknij
+-> end ! FAILURE
+
+Use case Wystawienie oceny zbioru danych Main scenario
+00: Uzytkownik <select> wystawienie oceny zbioru danych
+01: System <show> wystawienia oceny form
+02: Uzytkownik <enter> ocena i komentarz
+03: Uzytkownik <select> przeslij ocene
+04: System <check> ocena i komentarz
+05: System <execute> dodaj o ocene i komentarz i licz srednia
+06: System <show> success message
+07: Uzytkownik <select> zamknij
+-> end ! SUCCESS
+
+Scenario
+02: -"-
+A3: Uzytkownik <select> nieprawidlowa wartosc oceny
+A4: System <show> nieprawidlowa wartosc oceny message
+A5: Uzytkownik <select> zamknij
+-> end ! FAILURE
+
+Scenario
+02: -"-
+B2: Uzytkownik <select> blad bazy danych
+B3: System <show> db error message
+B4: Uzytkownik <select> zamknij
+-> end ! FAILURE
+
+Use case Zmiana hasla uzytkownika Main scenario
+00: User <select> Zmien haslo
+01: System <show> zmiana hasla form
+02: User <enter> hasla
+03: User <select> ok
+04: System <check> hasla
+05: System <execute> zmiana hasla method
+06: System <show> zmiana hasla confirm window
+07: User <select> zamknij
+-> end ! OK
+
+Scenario
+02: -"-
+A3: User <select> ok bledne dane
+A4: System <check> hasla
+A5: System <show> zmiana hasla zle dane window
+A6: User <select> ponow
+-> rejoin 01
+
+Scenario
+02: -"-
+B3: User <select> ok blad bazy danych
+B4: System <show> zmiana hasla blad bazy window
+B5: User <select> zamknij
+-> end ! FAILURE
+
+Scenario 
+01: -"-  
+C2: User <select> zamknij
+-> end ! CANCEL
+
+Use case Lista wygenerowanych raportow Main scenario
+00: Uzytkownik <select> wyswietl liste raportow
+01: System <show> okno listy raportow
+02: Uzytkownik <select> istniejaca lista raportow
+03: System <read> lista raportow
+04: System <check> lista raportow
+05: System <show> lista raportow
+06: Uzytkownik <select> zamknij
+-> end ! OK
+
+Scenario
+01: -"-
+A1: Uzytkownik <select> lista raportow z bledem bazy danych
+A2: System <show> komunikat o bledzie
+A3: Uzytkownik <select> zamknij
+-> end ! CANCEL
+
+Scenario
+01: -"-
+B1: Uzytkownik <select> pusta lista raportow
+B2: System <show> komunikat o braku raportow
+B3: Uzytkownik <select> zamknij
+-> end ! CANCEL
+
+Use case Zgloszenie bledow danych Main scenario
+00: User <select> Zglos blad danych
+01: System <show> zglos blad danych form
+02: User <enter> kryteria bledu
+03: User <select> Zapisz standartowo
+04: System <check> kryteria bledu 
+05: System <show> Zgloszenie zostalo zapisane 
+06: User <select> Close
+-> end ! OK
+
+Scenario
+02: -"-
+A1:User <select> Zapisz z bledem bazy
+A2: System <show> Blad polaczenia z baza danych
+A3: User <select> Close
+-> rejoin 01
+
+Scenario
+02: -"-
+B1: User <select> Zapisz z priorytetem
+B2: System <check> kryteria bledu
+B3: System <show> Zgloszenie zostalo zapisane 
+B4: User <select> powrot
+-> rejoin 01
+
+Scenario 
+01: -"-  
+C1: User <select> Cancel  
+-> end ! CANCEL
+
+Use case Tworzenie schematow danych Main scenario 
+00: Admin <select> Dodaj nowy schemat danych  
+01: System <show> dodaj nowy schemat danych form  
+02: Admin <enter> schemat zbioru danych
+03: Admin <select> Dodaj schemat  
+04: System <check> schemat zbioru danych
+05: System <execute> synchronizuj z CKAN
+06: System <execute> zapisz schemat do bazy danych
+07: System <show> schemat poprawnie dodany window  
+08: Admin <select> Close  
+-> end ! OK
+
+Scenario 
+02: -"-  
+A1: Admin <select> Schemat niepoprawny
+A2: System <show> schemat niepoprawny error message
+A3: Admin <select> Wroc do edycji
+-> rejoin 01
+
+
+Scenario 
+02: -"-  
+B1: Admin <select> Blad synchronizacji z CKAN 
+B2: System <show> blad synchronizacji z CKAN error message
+B3: Admin <select> Close
+-> end ! CANCEL
+
+Scenario 
+01: -"-  
+C1: Admin <select> Cancel  
+-> end ! CANCEL
+
+Use case Usuwanie schematu danych Main scenario
+00: Administrator <select> usuwanie schematu danych
+01: System <show> schematdanychdousuniecia
+02: Administrator <enter> schemat danych do usuniecia
+03: Administrator <select> zatwierdz usuniecie
+04: System <check> schemat danych do usuniecia
+05: System <execute> usunschematdanych
+06: System <execute> synchronizacjazCKAN
+07: System <show> komunikatsukcesuwindow
+08: Administrator <select> Close
+-> end ! OK
+
+Scenario
+02: -"-
+A1: Administrator <select> Schemat jest powiazany z istniejacym zbiorem
+A2: System <show> blad powiazania error message
+A3: Administrator <select> Zamknij
+-> rejoin 01
+
+Scenario
+02: -"-
+B1: Administrator <select> Blad synchronizacji
+B2: System <show> blad synchronizacji error message
+B3: Administrator <select> Zamknij
+B4: System <execute> usunschematdanych
+-> rejoin 01
+
+Scenario
+01: -"-
+C1: Administrator <select> anuluj
+-> end ! CANCEL
+
+Use case Delete User Main scenario 
+00: Admin <select> Usun uzytkownika  
+01: System <show> usun uzytkownika form  
+02: Admin <enter> dane uzytkownika
+03: Admin <select> Usun uzytkownika  
+04: System <check> dane uzytkownika
+05: System <execute> usun uzytkownika  
+06: System <show> uzytkownik poprawnie usuniety window  
+07: Admin <select> Close  
+-> end ! OK
+
+Scenario 
+02: -"-  
+A1: Admin <select> Usun z bledem danych
+A2: System <show> blad danych podczas usuwania error message
+A3: Admin <select> Close  
+-> rejoin 01
+
+
+Scenario 
+02: -"-  
+B1: Admin <select> Usun z bledem bazy danych 
+B2: System <show> blad bazy danych podczas usuwania error message
+B3: Admin <select> powrot  
+-> rejoin 01
+
+Scenario 
+01: -"-  
+C1: Admin <select> Cancel  
+-> end ! CANCEL
+ 
+Data dane uzytkownika {
+  Id : text,
+  Email : text 
+}
+
+Data schemat danych do usuniecia {
+  ID: text,
+  nazwa: text
+}
+
+Data blad powiazania error message {
+  informacja: text,
+  szczegoly: text
+}
+
+Data blad synchronizacji error message {
+  informacja: text,
+  szczegoly: text
+}
+
+Data komunikat sukcesu window {
+  informacja: text
+}
+
+Data schemat zbioru danych {
+  nazwa: text,
+  format: text,
+  wartosc: text
+}
+
+Data hasla {
+	StareHaslo: text,
+	NoweHaslo: text
+}
+
+Data uzytkownikk {
+    id: text,
+    imie: text,
+    nazwisko: text,
+    login: text,
+    haslo: text,
+    dostepy: text
+}
+
+Data lista uzytkownikoww {
+  uzytkownicy: [uzytkownikk]
+}
 
 Data plik walidacyjny {
   nazwa: text,
@@ -493,4 +782,51 @@ Data baza dany error message {
 
 Data brak uprawnie message {
 	nazwa: text
+}
+
+Data wystawienia oceny form {
+	ocena: integer,
+	komentarz: text
+}
+
+Data success message {
+	nazwa: text
+}
+
+Data db error message {
+	nazwa: text
+}
+
+Data nieprawidlowa wartosc oceny message {
+	nazwa: text
+}
+
+Data raport {
+  data: text,
+  rozmiar: integer,
+  opis: text
+}
+
+Data lista raportow {
+  raporty: [raport]
+}
+
+Data kryteria bledu {
+   kategoria: text,
+   opis: text
+}
+
+Data status zgloszenia {
+    oczekujacy : boolean,
+    zatwierdzone: boolean,
+    odrzucone: boolean
+}
+
+ Data blad danych {
+    zbiorId : integer,
+    kategoria: text,
+    opis: text,
+    uzytkownikId : integer,
+    uprzywilejowany: boolean,
+    status: status zgloszenia
 }
