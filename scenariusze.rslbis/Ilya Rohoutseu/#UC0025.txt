@@ -8,9 +8,9 @@ Use case Start Main scenario
 Use case Delete User Main scenario 
 00: Admin <select> Usun uzytkownika  
 01: System <show> usun uzytkownika form  
-02: Admin <enter> uzytkownik
+02: Admin <enter> dane uzytkownika
 03: Admin <select> Usun uzytkownika  
-04: System <check> uzytkownik
+04: System <check> dane uzytkownika
 05: System <execute> usun uzytkownika  
 06: System <show> uzytkownik poprawnie usuniety window  
 07: Admin <select> Close  
@@ -36,7 +36,7 @@ Scenario
 C1: Admin <select> Cancel  
 -> end ! CANCEL
  
-Data uzytkownik {
+Data dane uzytkownika {
   Id : text,
   Email : text 
 }
