@@ -61,13 +61,35 @@ B4: User <select> zamknij
 
 Scenario
 04: -"-
-C5: User <invoke> Wyswietl historie zbiorow danych
+C5: User <invoke> Wyswietl historie zbiorow danych, Wystawienie oceny zbioru danych, Aktualizacja oceny zbioru danych
 -> rejoin 01
 
+Use case Aktualizacja oceny zbioru danych Main scenario
+00: User <select> aktualizuj ocene
+01: System <show> ocena zbioru form
+02: User <enter> ocena
+03: User <select> zapisz ocene
+04: System <check> ocena
+05: System <show> menu wyboru jakosci zapisu
+06: User <select> pomyslny zapis oceny
+07: System <execute> zapisanie oceny
+08: System <show> zmiana oceny success message
+09: User <select> ok
+-> end ! OK
+
 Scenario
-04: -"-
-D5: User <invoke> Wystawienie oceny zbioru danych
--> rejoin 01
+05: -"-
+A6: User <select> niepoprawne dane oceny
+A7: System <show> niepoprawne dane oceny error message
+A8: User <select> anuluj
+-> end ! FAILURE
+
+Scenario:
+05: -"-
+B6: User <select> ocena niepomyslnie zapisana
+B7: System <show> blad zapisu oceny error message
+B8: User <select> anuluj
+-> end ! FAILURE
 
 Use case Logowanie do systemu Main scenario
 00: Uzytkownik <select> logowanie
@@ -334,7 +356,6 @@ Use case Modyfikacja dostepu do systemu Main scenario
 07: User <select> zatwierdz
 08: System <show> dostep zmieniony
 09: User <select> close
-
 -> end ! OK
 
 Scenario
@@ -524,6 +545,11 @@ Scenario
 01: -"-
 C1: Administrator <select> anuluj
 -> end ! CANCEL
+
+Data ocena {
+    ocena: integer,
+    komentarz: text
+}
 
 Data schemat danych do usuniecia {
   ID: text,

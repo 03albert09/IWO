@@ -1,0 +1,41 @@
+Use case Start Main scenario 
+00: User <select> application  
+01: System <show> main menu  
+02: User <invoke> Aktualizacja oceny zbioru danych
+-> rejoin 01
+
+Use case Aktualizacja oceny zbioru danych Main scenario
+00: User <select> aktualizuj ocene
+01: System <show> ocena zbioru form
+02: User <enter> ocena
+03: User <select> zapisz ocene
+04: System <check> ocena
+05: System <show> menu wyboru jakosci zapisu
+06: User <select> pomyslny zapis oceny
+07: System <execute> zapisanie oceny
+08: System <show> zmiana oceny success message
+09: User <select> ok
+-> end ! OK
+
+Scenario
+05: -"-
+A6: User <select> niepoprawne dane oceny
+A7: System <show> niepoprawne dane oceny error message
+A8: User <select> anuluj
+-> end ! FAILURE
+
+Scenario:
+05: -"-
+B6: User <select> ocena niepomyslnie zapisana
+B7: System <show> blad zapisu oceny error message
+B8: User <select> anuluj
+-> end ! FAILURE
+
+Data ocena {
+  ocena: integer,
+  komentarz: text
+}
+
+Data zmiana oceny success message {
+  message: text
+}
