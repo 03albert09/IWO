@@ -89,7 +89,7 @@ A7: System <show> niepoprawne dane oceny error message
 A8: User <select> anuluj
 -> end ! FAILURE
 
-Scenario:
+Scenario
 05: -"-
 B6: User <select> ocena niepomyslnie zapisana
 B7: System <show> blad zapisu oceny error message
