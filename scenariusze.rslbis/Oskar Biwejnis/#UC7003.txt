@@ -1,0 +1,45 @@
+Use case Start Main scenario
+00: Uzytkownik <select> application
+01: System <show> main menu
+03: Uzytkownik <invoke> Wyswietlenie historii ocen
+-> rejoin 01
+
+Use case Wyswietlenie historii ocen Main scenario
+00: Uzytkownik <select> wyswietlenie historii ocen
+01: System <read> historia ocen
+02: System <show> historia ocen
+03: Uzytkownik <select> zamknij
+-> end ! SUCCESS
+
+Scenario
+02: -"-
+A1: Uzytkownik <select> komunikat o bledzie
+A2: System <show> komunikat o bledzie
+A3: Uzytkownik <select> zamknij
+-> end ! FAILURE
+
+Scenario
+02: -"-
+B1: Uzytkownik <select> komunikat o pustej historii ocen
+B2: System <show> komunikat o pustej historii ocen
+B3: Uzytkownik <select> zamknij
+-> end ! FAILURE
+
+Data ocena {
+	wartosc: integer,
+	dataWystawienia: date,
+	trescKomentarza: text
+}
+
+Data historia ocen {
+	idZbioru: text,
+	oceny: [ocena]
+}
+
+Data komunikat o bledzie {
+	tresc: text
+}
+
+Data komunikat o pustej historii ocen {
+	nazwa: text
+}

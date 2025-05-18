@@ -2,7 +2,7 @@ Use case Start Main scenario
 00: User <select> application  
 01: System <show> main menu  
 
-02: User <invoke> Add User, Wyswietlenie zbiorow danych, Edycja zbioru, Wyszukanie zbiorow danych, Logowanie do systemu, Filtrowanie zbiorow danych, Importowanie danych, Przyznanie dostepu do systemu, Walidacja danych, listowanie schematow danych, Modyfikacja dostepu do systemu, Zmiana hasla uzytkownika, Lista wygenerowanych raportow, Zgloszenie bledow danych, Tworzenie schematow danych  
+02: User <invoke> Add User, Wyswietlenie zbiorow danych, Edycja zbioru, Wyszukanie zbiorow danych, Logowanie do systemu, Filtrowanie zbiorow danych, Importowanie danych, Przyznanie dostepu do systemu, Walidacja danych, listowanie schematow danych, Modyfikacja dostepu do systemu, Zmiana hasla uzytkownika, Lista wygenerowanych raportow, Zgloszenie bledow danych, Tworzenie schematow danych, Delete User  
 -> rejoin 01
 
 
@@ -63,13 +63,42 @@ B4: User <select> zamknij
 
 Scenario
 04: -"-
-C5: User <invoke> Wyswietl historie zbiorow danych
+C5: User <invoke> Wyswietl historie zbiorow danych, Wystawienie oceny zbioru danych, Aktualizacja oceny zbioru danych
 -> rejoin 01
 
 Scenario
 04: -"-
-D5: User <invoke> Wystawienie oceny zbioru danych
+E5: User <invoke> Wyswietlenie historii ocen
 -> rejoin 01
+
+Use case Aktualizacja oceny zbioru danych Main scenario
+00: User <select> aktualizuj ocene
+01: System <show> ocena zbioru form
+02: User <enter> ocena
+03: User <select> zapisz ocene
+04: System <check> ocena
+05: System <show> menu wyboru jakosci zapisu
+06: User <select> pomyslny zapis oceny
+07: System <execute> zapisanie oceny
+08: System <show> zmiana oceny success message
+09: User <select> ok
+-> end ! OK
+
+Scenario
+05: -"-
+A6: User <select> niepoprawne dane oceny
+A7: System <show> niepoprawne dane oceny error message
+A8: User <select> anuluj
+-> end ! FAILURE
+
+Scenario
+05: -"-
+B6: User <select> ocena niepomyslnie zapisana
+B7: System <show> blad zapisu oceny error message
+B8: User <select> anuluj
+-> end ! FAILURE
+
+
 
 Use case Logowanie do systemu Main scenario
 00: Uzytkownik <select> logowanie
@@ -336,7 +365,6 @@ Use case Modyfikacja dostepu do systemu Main scenario
 07: User <select> zatwierdz
 08: System <show> dostep zmieniony
 09: User <select> close
-
 -> end ! OK
 
 Scenario
@@ -523,6 +551,27 @@ Scenario 03: -"-
 C1: Admin <select> Cancel  
 -> end ! CANCEL
 
+Use case Wyswietlenie historii ocen Main scenario
+00: Uzytkownik <select> wyswietlenie historii ocen
+01: System <read> historia ocen
+02: System <show> historia ocen
+03: Uzytkownik <select> zamknijj
+-> end ! SUCCESS
+
+Scenario
+02: -"-
+A1: Uzytkownik <select> komunikat o bledzie
+A2: System <show> komunikat o bledzie
+A3: Uzytkownik <select> zamknija
+-> end ! FAILURE
+
+Scenario
+02: -"-
+B1: Uzytkownik <select> komunikat o pustej historii ocen
+B2: System <show> komunikat o pustej historii ocen
+B3: Uzytkownik <select> zamknijb
+-> end ! FAILURE
+
 Use case Usuwanie schematu danych Main scenario
 00: Administrator <select> usuwanie schematu danych
 01: System <show> schematdanychdousuniecia
@@ -551,6 +600,47 @@ B4: System <execute> usunschematdanych
 Scenario 03: -"-  
 C1: Administrator <select> anuluj
 -> end ! CANCEL
+
+Use case Delete User Main scenario 
+00: Admin <select> Usun uzytkownika  
+01: System <show> usun uzytkownika form  
+02: Admin <enter> dane uzytkownika
+03: Admin <select> Usun uzytkownika  
+04: System <check> dane uzytkownika
+05: System <execute> usun uzytkownika  
+06: System <show> uzytkownik poprawnie usuniety window  
+07: Admin <select> Close  
+-> end ! OK
+
+Scenario 
+02: -"-  
+A1: Admin <select> Usun z bledem danych
+A2: System <show> blad danych podczas usuwania error message
+A3: Admin <select> Close  
+-> rejoin 01
+
+
+Scenario 
+02: -"-  
+B1: Admin <select> Usun z bledem bazy danych 
+B2: System <show> blad bazy danych podczas usuwania error message
+B3: Admin <select> powrot  
+-> rejoin 01
+
+Scenario 
+01: -"-  
+C1: Admin <select> Cancel  
+-> end ! CANCEL
+ 
+Data dane uzytkownika {
+  Id : text,
+  Email : text 
+}
+
+Data ocena {
+    ocena: integer,
+    komentarz: text
+}
 
 
 Data schemat danych do usuniecia {
@@ -836,5 +926,25 @@ Data eksport danych {
   status: text,
   format: text,
   plik: text
+}
+
+
+Data ocena {
+	wartosc: integer,
+	dataWystawienia: date,
+	trescKomentarza: text
+}
+
+Data historia ocen {
+	idZbioru: text,
+	oceny: [ocena]
+}
+
+Data komunikat o bledzie {
+	tresc: text
+}
+
+Data komunikat o pustej historii ocen {
+	nazwa: text
 }
 
