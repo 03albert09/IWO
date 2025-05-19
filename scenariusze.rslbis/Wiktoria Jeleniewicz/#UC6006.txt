@@ -17,7 +17,7 @@ Use case Lista wygenerowanych raportow Main scenario
 Scenario
 01: -"-
 A1: Uzytkownik <select> lista raportow z bledem bazy danych
-A2: System <show> komunikat o bledzie
+A2: System <show> komunikat o bledzie pobierania raportow z bazy danych
 A3: Uzytkownik <select> zamknij
 -> end ! CANCEL
 
@@ -36,4 +36,8 @@ Data raport {
 
 Data lista raportow {
   raporty: [raport]
+}
+
+Data komunikat o bledzie pobierania raportow z bazy danych {
+  tresc: text
 }
