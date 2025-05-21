@@ -348,8 +348,8 @@ B4: Uzytkownik <select> zamknij
 -> end ! FAILURE
 
 Scenario
-01: -"-
-C2: Administrator <invoke> Usuwanie schematu danych
+04: -"-
+C5: Administrator <invoke> Usuwanie schematu danych
 -> end ! SUCCESS
 
 Use case Modyfikacja dostepu do systemu Main scenario
