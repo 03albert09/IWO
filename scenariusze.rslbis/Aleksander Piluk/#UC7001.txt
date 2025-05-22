@@ -7,9 +7,9 @@ Use case Start Main scenario
 Use case Wystawienie oceny zbioru danych
 00: Uzytkownik <select> wystawienie oceny zbioru danych
 01: System <show> wystawienia oceny form
-02: Uzytkownik <enter> ocena i komentarz
+02: Uzytkownik <enter> wystawienia oceny form
 03: Uzytkownik <select> przeslij ocene
-04: System <check> ocena i komentarz
+04: System <check> wystawienia oceny form
 05: System <execute> dodaj o ocene i komentarz i licz srednia
 06: System <show> success message
 07: Uzytkownik <select> zamknij
