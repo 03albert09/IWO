@@ -1,0 +1,62 @@
+Use case Start Main scenario 
+00: User <select> application  
+01: System <show> main menu  
+02: User <invoke> Dodawanie nowych zbiorow danych
+-> rejoin 01
+
+Use case Dodawanie nowych zbiorow danych Main scenario
+00: Administrator <select> dodawanie nowego zbioru danych
+01: System <show> formularz dodawania nowego zbioru danych
+02: Administrator <enter> dane zbioru
+03: Administrator <invoke> Walidacja danych
+[dane zbioru ? valid]
+04: System <execute> zapisz zbior danych
+-> end ! OK
+
+Scenario
+02: -"-
+[dane zbioru ? invalid]
+A1: System <show> lista bledow message
+A2: Administrator <select> edytuj
+-> rejoin 01
+
+Scenario
+02: -"-
+[system ? failure]
+B1: Administrator <select> anuluj
+B2: System <show> komunikat awarii message
+B3: Administrator <select> zamknij
+-> end ! FAILURE
+
+View *form* formularz dodawania nowego zbioru danych {Wprowadz dane nowego zbioru danych}
+View *form* lista bledow message {Lista bledow walidacji}
+View *form* komunikat awarii message {Awaria systemu}
+
+Data dane zbioru {
+  wlasciciel: text,
+  metadane: metadane[],
+  zrodlo_danych: text,
+  data_dodania: date,
+  data_aktualizacji: date
+}
+
+Data metadane {
+  nazwa: text,
+  kategoria: text,
+  typ: text,
+  opis: text
+}
+
+Data formularz dodawania nowego zbioru danych {
+  zrodlo_danych: text,
+  metadane: metadane[]
+}
+
+Data lista bledow message {
+  informacja: text,
+  bledy: text[]
+}
+
+Data komunikat awarii message {
+  informacja: text
+}
