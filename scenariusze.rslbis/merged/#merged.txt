@@ -1,8 +1,7 @@
 Use case Start Main scenario 
 00: User <select> application  
 01: System <show> main menu  
-
-02: User <invoke> Add User, Wyswietlenie zbiorow danych, Edycja zbioru, Wyszukanie zbiorow danych, Logowanie do systemu, Filtrowanie zbiorow danych, Importowanie danych, Przyznanie dostepu do systemu, Walidacja danych, listowanie schematow danych, Modyfikacja dostepu do systemu, Zmiana hasla uzytkownika, Lista wygenerowanych raportow, Zgloszenie bledow danych, Tworzenie schematow danych, Delete User  
+02: User <invoke> Add User, Wyswietlenie zbiorow danych, Edycja zbioru, Wyszukanie zbiorow danych, Logowanie do systemu, Filtrowanie zbiorow danych, Importowanie danych, Przyznanie dostepu do systemu, Walidacja danych, listowanie schematow danych, Modyfikacja dostepu do systemu, Zmiana hasla uzytkownika, Lista wygenerowanych raportow, Zgloszenie bledow danych, Tworzenie schematow danych, Delete User
 -> rejoin 01
 
 
@@ -44,7 +43,6 @@ Use case Wyswietlenie zbiorow danych Main scenario
 03: System <read> zbior danych list
 04: System <show> zbior danych list
 05: User <select> zamknij
-05.1: User <invoke> Eksportowanie danych
 -> end ! SUCCESS
 
 Scenario
@@ -63,7 +61,7 @@ B4: User <select> zamknij
 
 Scenario
 04: -"-
-C5: User <invoke> Wyswietl historie zbiorow danych, Wystawienie oceny zbioru danych, Aktualizacja oceny zbioru danych
+C5: User <invoke> Wyswietl historie zbiorow danych, Wystawienie oceny zbioru danych, Aktualizacja oceny zbioru danych, Eksportowanie danych
 -> rejoin 01
 
 Scenario
@@ -350,8 +348,8 @@ B4: Uzytkownik <select> zamknij
 -> end ! FAILURE
 
 Scenario
-01: -"-
-C2: Administrator <invoke> Usuwanie schematu danych
+04: -"-
+C5: Administrator <invoke> Usuwanie schematu danych
 -> end ! SUCCESS
 
 Use case Modyfikacja dostepu do systemu Main scenario
@@ -384,9 +382,9 @@ C9: User <select> zamknij
 Use case Wystawienie oceny zbioru danych Main scenario
 00: Uzytkownik <select> wystawienie oceny zbioru danych
 01: System <show> wystawienia oceny form
-02: Uzytkownik <enter> ocena i komentarz
+02: Uzytkownik <enter> wystawienia oceny form
 03: Uzytkownik <select> przeslij ocene
-04: System <check> ocena i komentarz
+04: System <check> wystawienia oceny form
 05: System <execute> dodaj o ocene i komentarz i licz srednia
 06: System <show> success message
 07: Uzytkownik <select> zamknij
@@ -450,7 +448,7 @@ Use case Lista wygenerowanych raportow Main scenario
 Scenario
 01: -"-
 A1: Uzytkownik <select> lista raportow z bledem bazy danych
-A2: System <show> komunikat o bledzie
+A2: System <show> komunikat o bledzie pobierania raportow z bazy danych
 A3: Uzytkownik <select> zamknij
 -> end ! CANCEL
 
@@ -491,38 +489,6 @@ Scenario
 C1: User <select> Cancel  
 -> end ! CANCEL
 
-Use case Eksportowanie danych Main scenario
-00: User <select> Eksport danych
-01: System <show> format eksportu form
-02: User <enter> format eksportu
-03: User <select> pobierz
-04: System <check> format eksportu
-05: System <show> komunikat sukcesu
-06: User <select> zamknij
--> end ! SUCCESS
-
-Scenario 01: -"-  
-A1: User <select> Pobierz z brakiem dannych
-A2: System <show> blad braku danych
-A3: User <select> zamknij
--> rejoin 01
-
-Scenario 02: -"-  
-B1: User <select> Pobierz z bledem generowania
-B2: System <show> komunikat bledu generowania
-B3: User <select> zamknij
--> rejoin 01
-
-Scenario 03: -"-  
-C1: User <select> Pobierz z bledem pobierania
-C2: System <show> komunikat bledu pobierania
-C3: User <select> zamknij
--> rejoin 01
-
-Scenario 04: -"-  
-D1: User <select> Cancel
--> end ! CANCEL
-
 Use case Tworzenie schematow danych Main scenario 
 00: Admin <select> Dodaj nowy schemat danych  
 01: System <show> dodaj nowy schemat danych form  
@@ -535,19 +501,23 @@ Use case Tworzenie schematow danych Main scenario
 08: Admin <select> Close  
 -> end ! OK
 
-Scenario 01: -"-  
+Scenario 
+02: -"-  
 A1: Admin <select> Schemat niepoprawny
 A2: System <show> schemat niepoprawny error message
 A3: Admin <select> Wroc do edycji
 -> rejoin 01
 
-Scenario 02: -"-  
+
+Scenario 
+02: -"-  
 B1: Admin <select> Blad synchronizacji z CKAN 
 B2: System <show> blad synchronizacji z CKAN error message
-B3: Admin <select> Close 
+B3: Admin <select> Close
 -> end ! CANCEL
 
-Scenario 03: -"-  
+Scenario 
+01: -"-  
 C1: Admin <select> Cancel  
 -> end ! CANCEL
 
@@ -584,22 +554,26 @@ Use case Usuwanie schematu danych Main scenario
 08: Administrator <select> Close
 -> end ! OK
 
-Scenario 01: -"-  
+Scenario
+02: -"-
 A1: Administrator <select> Schemat jest powiazany z istniejacym zbiorem
 A2: System <show> blad powiazania error message
 A3: Administrator <select> Zamknij
--> end ! CANCEL
+-> rejoin 01
 
-Scenario 02: -"-  
+Scenario
+02: -"-
 B1: Administrator <select> Blad synchronizacji
 B2: System <show> blad synchronizacji error message
 B3: Administrator <select> Zamknij
 B4: System <execute> usunschematdanych
 -> rejoin 01
 
-Scenario 03: -"-  
+Scenario
+01: -"-
 C1: Administrator <select> anuluj
 -> end ! CANCEL
+
 
 Use case Delete User Main scenario 
 00: Admin <select> Usun uzytkownika  
@@ -631,7 +605,43 @@ Scenario
 01: -"-  
 C1: Admin <select> Cancel  
 -> end ! CANCEL
- 
+
+Use case Eksportowanie danych Main scenario
+00: User <select> eksportowanie danych  
+01: System <show> formularz eksportu  
+02: User <enter> dane eksportu  
+03: User <select> Eksportuj  
+04: System <check> dane eksportu  
+05: System <execute> eksport danych   
+06: User <select> Close  
+-> end ! OK
+
+Scenario 
+01: -"-  
+A1: User <select> Pobierz z brakiem danych
+A2: System <show> blad braku danych
+A3: User <select> zamknij
+-> rejoin 01
+
+Scenario 
+01: -"-  
+B1: User <select> Pobierz z bledem generowania
+B2: System <show> komunikat bledu generowania
+B3: User <select> zamknij
+-> rejoin 01
+
+Scenario 
+01: -"-  
+C1: User <select> Pobierz z bledem pobierania
+C2: System <show> komunikat bledu pobierania
+C3: User <select> zamknij
+-> rejoin 01
+
+Scenario 
+01: -"-  
+D1: User <select> Cancel
+-> end ! CANCEL
+
 Data dane uzytkownika {
   Id : text,
   Email : text 
@@ -641,7 +651,6 @@ Data ocena {
     ocena: integer,
     komentarz: text
 }
-
 
 Data schemat danych do usuniecia {
   ID: text,
@@ -807,6 +816,7 @@ Data dane logowania {
 View *form* formularz logowania {Wprowadz dane logowania}
 View *form* potwierdzenie zalogowania {Pomyslnie zalogowano}
 View *form* informacja o bledzie logowania {Bledne dane logowania}
+View *form* formularz eksportu {Wybierz dane i format eksportu}
 
 Data kryteria wyszukiwania {
   Fraza : text,
@@ -913,22 +923,6 @@ Data status zgloszenia {
     status: status zgloszenia
 }
 
-Data dane eksportu {
-  format: text,
-  zawartosc: text
-}
-
-Data format eksportu{
-  format: text
-}
-
-Data eksport danych {
-  status: text,
-  format: text,
-  plik: text
-}
-
-
 Data ocena {
 	wartosc: integer,
 	dataWystawienia: date,
@@ -944,7 +938,31 @@ Data komunikat o bledzie {
 	tresc: text
 }
 
+Data komunikat o bledzie pobierania raportow z bazy danych {
+  tresc: text
+}
+
 Data komunikat o pustej historii ocen {
 	nazwa: text
 }
 
+Data dane eksportu {
+  zbior: zbior danych,
+  format: text
+}
+
+Data formularz eksportu {
+  dane: dane eksportu
+}
+
+Data blad braku danych {
+  informacja: text
+}
+
+Data komunikat bledu generowania {
+  informacja: text
+}
+
+Data komunikat bledu pobierania {
+  informacja: text
+}
