@@ -1,7 +1,8 @@
+
 Use case Start Main scenario 
 00: User <select> application  
 01: System <show> main menu  
-02: User <invoke> Add User, Wyswietlenie zbiorow danych, Edycja zbioru, Wyszukanie zbiorow danych, Logowanie do systemu, Filtrowanie zbiorow danych, Importowanie danych, Przyznanie dostepu do systemu, Walidacja danych, listowanie schematow danych, Modyfikacja dostepu do systemu, Zmiana hasla uzytkownika, Lista wygenerowanych raportow, Zgloszenie bledow danych, Tworzenie schematow danych, Delete User
+02: User <invoke> Add User, Wyswietlenie zbiorow danych, Edycja zbioru, Wyszukanie zbiorow danych, Logowanie do systemu, Importowanie danych, Przyznanie dostepu do systemu, Walidacja danych, listowanie schematow danych, Modyfikacja dostepu do systemu, Zmiana hasla uzytkownika, Lista wygenerowanych raportow, Zgloszenie bledow danych, Tworzenie schematow danych, Delete User
 -> rejoin 01
 
 
@@ -61,8 +62,8 @@ B4: User <select> zamknij
 
 Scenario
 04: -"-
-C5: User <invoke> Wyswietl historie zbiorow danych, Wystawienie oceny zbioru danych, Aktualizacja oceny zbioru danych, Eksportowanie danych
--> rejoin 01
+C5: User <invoke> Wyswietl historie zbiorow danych, Wystawienie oceny zbioru danych, Aktualizacja oceny zbioru danych, Eksportowanie danych, Filtrowanie zbiorow danych
+-> rejoin 03
 
 Scenario
 04: -"-
@@ -103,10 +104,6 @@ Use case Logowanie do systemu Main scenario
 01: System <show> formularz logowania
 02: Uzytkownik <enter> dane logowania
 03: Uzytkownik <select> zaloguj
-04: System <check> dane logowania
-[dane logowania ? valid]
-05: System <show> potwierdzenie zalogowania
-06: Uzytkownik <select> zamknij
 -> end ! OK
 
 Scenario
@@ -115,12 +112,6 @@ A1: Uzytkownik <select> anuluj logowanie
 A2: System <close> formularz logowania
 -> end ! CANCEL
 
-Scenario
-04: -"-
-[dane logowania ? invalid]
-B1: System <show> informacja o bledzie logowania
-B2: Uzytkownik <select> ponow logowanie
--> rejoin 01
 
 Use case Wyszukanie zbiorow danych Main scenario
 00: User <select> Wyszukaj zbior danych
@@ -190,9 +181,6 @@ Use case Filtrowanie zbiorow danych Main scenario
 01: System <show> filtruj zbior danych form
 02: User <enter> kryteria filtrowania
 03: User <select> Filtruj zbior
-04: System <check> kryteria filtrowania 
-05: System <show> zbiory wg kryteriow list
-06: User <select> Close
 -> end ! OK
 
 Scenario
@@ -637,11 +625,6 @@ C2: System <show> komunikat bledu pobierania
 C3: User <select> zamknij
 -> rejoin 01
 
-Scenario 
-01: -"-  
-D1: User <select> Cancel
--> end ! CANCEL
-
 Data dane uzytkownika {
   Id : text,
   Email : text 
@@ -813,10 +796,6 @@ Data dane logowania {
   haslo: text
 }
 
-View *form* formularz logowania {Wprowadz dane logowania}
-View *form* potwierdzenie zalogowania {Pomyslnie zalogowano}
-View *form* informacja o bledzie logowania {Bledne dane logowania}
-View *form* formularz eksportu {Wybierz dane i format eksportu}
 
 Data kryteria wyszukiwania {
   Fraza : text,
@@ -848,10 +827,6 @@ Data zmiana zbioru danych {
 Data historia zmian zbioru danych {
   zmiany: [zmiana zbioru danych]
 }
-
-Trigger *button* zamknij {Zamknij}
-Trigger *button* ponow logowanie {Ponow logowanie}
-Trigger *button* anuluj logowanie {Anuluj logowanie}
 
 
 
@@ -966,4 +941,3 @@ Data komunikat bledu generowania {
 Data komunikat bledu pobierania {
   informacja: text
 }
-
