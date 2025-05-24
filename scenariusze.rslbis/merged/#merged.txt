@@ -966,3 +966,4 @@ Data komunikat bledu generowania {
 Data komunikat bledu pobierania {
   informacja: text
 }
+
